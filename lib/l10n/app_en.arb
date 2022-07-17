@@ -1,0 +1,52 @@
+{
+    "@@locale": "en",
+    "counterAppBarTitle": "Pass The Pigs",
+    "@counterAppBarTitle": {
+        "description": "Text shown in the AppBar of the Counter Page"
+    },
+    "resetButton": "Reset",
+    "@resetButton": {
+        "description": "Text shown in the Reset Button"
+    },
+    "pigOneLabel": "Pig One",
+    "@pigOneLabel": {
+        "description": "Text shown in the Label for Pig One"
+    },
+    "pigTwoLabel": "Pig Two",
+    "@pigTwoLabel": {
+        "description": "Text shown in the Label for Pig Two"
+    },
+    "turnScoreLabel": "Turn Score",
+    "@turnScoreLabel": {
+        "description": "Text shown in the Label for Turn Score"
+    },
+    "endTurnButtonLabel": "End turn",
+    "@endTurnButtonLabel": {
+        "description": "End turn button label"
+    },
+    "nextPlayerFab": "Next player",
+    "@nextPlayerFab": {
+        "description": "FAB label for next player"
+    },
+    "makingBacon": "Making Bacon",
+    "@makingBacon": {
+        "description": "Text shown when throw is Making Bacon"
+    },
+    "makingBaconDialogBody": "This will reset your game score to 0.",
+    "@makingBaconDialogBody": {
+        "description": "Body of Making Bacon dialog"
+    },
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "Used anywhere that cancel is needed"
+    },
+    "resetScore": "Reset score",
+    "@resetScore": {
+        "description": "Used anywhere that reset score is needed"
+    },
+    "turnNotComplete": "Turn is not complete",
+    "@turnNotComplete": {
+        "description": "Error when turn is not complete"
+    }
+    
+}

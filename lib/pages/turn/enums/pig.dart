@@ -1,0 +1,1 @@
+enum Pig { one, two }
