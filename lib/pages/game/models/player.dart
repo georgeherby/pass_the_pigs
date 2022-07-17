@@ -13,8 +13,8 @@ class Player extends Equatable {
 
   Player addThrowToPlayer(Throw newThrow) {
     return copyWith(throws: [...throws, newThrow]);
-  }  
-  
+  }
+
   Player makingBacon() {
     return copyWith(throws: []);
   }
