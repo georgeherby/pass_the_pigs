@@ -13,17 +13,23 @@ class App extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: lightColorScheme,
         scaffoldBackgroundColor: lightColorScheme.background,
-        textTheme: GoogleFonts.dmSerifDisplayTextTheme(),
+        textTheme: GoogleFonts.dmSerifDisplayTextTheme(
+          ThemeData.light().textTheme,
+        ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
+        brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: darkColorScheme,
         scaffoldBackgroundColor: darkColorScheme.background,
-        textTheme: GoogleFonts.dmSerifDisplayTextTheme(),
+        textTheme: GoogleFonts.dmSerifDisplayTextTheme(
+          ThemeData.dark().textTheme,
+        ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

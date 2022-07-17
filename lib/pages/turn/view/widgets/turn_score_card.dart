@@ -24,23 +24,11 @@ class TurnScoreCard extends StatelessWidget {
                   children: [
                     Text(
                       l10n.turnScoreLabel,
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                     Text(
                       '${turn.getScore()}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineLarge
-                          ?.copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant),
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                   ],
                 ),
@@ -60,11 +48,8 @@ class TurnScoreCard extends StatelessWidget {
                             : const Text('-'),
                       ),
                     ),
-                    Text(
-                      l10n.pigOneLabel,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground),
-                    ),
+                    Text(l10n.pigOneLabel,
+                        style: Theme.of(context).textTheme.titleMedium),
                   ],
                 ),
                 Column(
@@ -80,8 +65,7 @@ class TurnScoreCard extends StatelessWidget {
                     ),
                     Text(
                       l10n.pigTwoLabel,
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onBackground),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 
 class MakingBaconDialog extends StatelessWidget {
@@ -10,28 +9,20 @@ class MakingBaconDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return PlatformAlertDialog(
+    return AlertDialog(
       title: Text(l10n.makingBacon),
       content: Text(l10n.makingBaconDialogBody),
       actions: <Widget>[
-        PlatformDialogAction(
-          child: Text(l10n.cancel),
-          cupertino: (context, _) => CupertinoDialogActionData(
-            isDefaultAction: false,
-            isDestructiveAction: false,
-          ),
+        TextButton(
+          child: Text(l10n.cancel,
+              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
-        PlatformDialogAction(
-          child: Text(l10n.resetScore),
-          material: (context, platform) => MaterialDialogActionData(
-            style: TextButton.styleFrom(
-                foregroundColor: Theme.of(context).colorScheme.error),
-          ),
-          cupertino: (context, _) => CupertinoDialogActionData(
-              isDefaultAction: true, isDestructiveAction: true),
+        TextButton(
+          child: Text(l10n.resetScore,
+              style: TextStyle(color: Theme.of(context).colorScheme.error)),
           onPressed: () {
             onMakingBacon();
             Navigator.of(context).pop();

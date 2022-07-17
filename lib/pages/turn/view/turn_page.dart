@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 import 'package:pass_the_pigs/pages/game/cubit/game_cubit.dart';
 import 'package:pass_the_pigs/pages/game/models/player.dart';
@@ -115,10 +114,7 @@ class TurnCalculatorView extends StatelessWidget {
         title: Text(player.name),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(10),
-          child: Text(
-            'Current score: ${player.score}',
-            style: TextStyle(color: Theme.of(context).colorScheme.onBackground),
-          ),
+          child: Text('Current score: ${player.score}'),
         ),
       ),
       body: Center(child: TurnCalculatorViewBody(onMakingBacon)),
@@ -182,10 +178,8 @@ class TurnCalculatorViewBody extends StatelessWidget {
                               Theme.of(context).colorScheme.surface,
                           surfaceTintColor:
                               Theme.of(context).colorScheme.surfaceTint,
-                          // backgroundColor:
-                          //     Theme.of(context).colorScheme.tertiaryContainer,
                         ),
-                        onPressed: () => showPlatformDialog(
+                        onPressed: () => showDialog(
                             context: context,
                             builder: (_) => MakingBaconDialog(
                                 onMakingBacon: onMakingBacon)),
