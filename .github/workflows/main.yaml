@@ -58,5 +58,4 @@ jobs:
         with:
           name: debug-apk
           path: |
-            ./build/app/outputs/flutter-apk/app-armeabi-v7a-development-debug.apk
-            ./build/app/outputs/flutter-apk/app-arm64-v8a-development-debug.apk
+            build/app/outputs/flutter-apk/app-armeabi-v7a-development-debug.apk
