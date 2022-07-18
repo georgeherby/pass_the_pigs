@@ -67,6 +67,10 @@
     "startGameButton": "Start game",
     "@startGameButton": {
         "description": "Start game button label"
+    },
+    "endGameConfirmButton": "End game",
+    "@endGameConfirmButton": {
+        "description": "End game confirm button label"
     }
     
 }

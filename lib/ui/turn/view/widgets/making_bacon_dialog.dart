@@ -11,6 +11,7 @@ class MakingBaconDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return DestructiveDialog(
+      destroyButtonText: l10n.resetScore,
       title: l10n.makingBacon,
       content: l10n.makingBaconDialogBody,
       onCancel: () {

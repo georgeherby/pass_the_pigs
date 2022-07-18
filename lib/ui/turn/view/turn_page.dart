@@ -115,6 +115,7 @@ class TurnCalculatorView extends StatelessWidget {
           onPressed: () => showDialog(
               context: context,
               builder: (_) => DestructiveDialog(
+                  destroyButtonText: l10n.endGameConfirmButton,
                   onConfirm: () {
                     Navigator.of(context).pop();
                     context.read<GameCubit>().endGame();

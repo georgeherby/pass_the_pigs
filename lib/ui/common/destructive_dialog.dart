@@ -5,6 +5,7 @@ class DestructiveDialog extends StatelessWidget {
   const DestructiveDialog(
       {super.key,
       required this.onConfirm,
+      required this.destroyButtonText,
       required this.onCancel,
       required this.title,
       required this.content});
@@ -12,6 +13,7 @@ class DestructiveDialog extends StatelessWidget {
   final VoidCallback onCancel;
   final String title;
   final String content;
+  final String destroyButtonText;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +30,7 @@ class DestructiveDialog extends StatelessWidget {
         ),
         TextButton(
             onPressed: onConfirm,
-            child: Text(l10n.resetScore,
+            child: Text(destroyButtonText,
                 style: TextStyle(color: Theme.of(context).colorScheme.error))),
       ],
     );
