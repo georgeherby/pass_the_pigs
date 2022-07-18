@@ -1,7 +1,7 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Pass The Pigs",
-    "@counterAppBarTitle": {
+    "appBarTitle": "Pass The Pigs",
+    "@appBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     },
     "resetButton": "Reset",
@@ -55,6 +55,18 @@
     "endGameDialogContent": "This will result in the termination of the game and the loss of your existing scorecard.",
     "@endGameDialogContent": {
         "description": "Conetnt for end game dialog"
+    },
+    "enterPlayerName": "Enter player name",
+    "@enterPlayerName": {
+        "description": "Enter player name input label"
+    },
+    "minimumOfTwoPlayers": "A minimum of two players are needed to start a game.",
+    "@minimumOfTwoPlayers": {
+        "description": "Error when starting the game with less than 2 players"
+    },
+    "startGameButton": "Start game",
+    "@startGameButton": {
+        "description": "Start game button label"
     }
     
 }

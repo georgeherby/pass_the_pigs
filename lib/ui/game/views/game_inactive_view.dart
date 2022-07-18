@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
+import 'package:pass_the_pigs/theme/color_schemes.g.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
-import 'package:pass_the_pigs/ui/game/models/player.dart';
+import 'package:pass_the_pigs/ui/game/models/game.dart';
+
+import 'package:pass_the_pigs/ui/game/views/widgets/add_player_form.dart';
 
 class GameInactiveView extends StatelessWidget {
   const GameInactiveView({super.key});
@@ -18,7 +21,7 @@ class GameInactiveView extends StatelessWidget {
           title: Stack(
             children: [
               Text(
-                l10n.counterAppBarTitle.toUpperCase(),
+                l10n.appBarTitle.toUpperCase(),
                 style: GoogleFonts.dmSerifDisplay(
                   fontWeight: FontWeight.bold,
                   foreground: Paint()
@@ -28,39 +31,63 @@ class GameInactiveView extends StatelessWidget {
                 ),
               ),
               Text(
-                l10n.counterAppBarTitle.toUpperCase(),
+                l10n.appBarTitle.toUpperCase(),
                 style: GoogleFonts.dmSerifDisplay(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
+                  color: lightColorScheme.secondaryContainer,
                 ),
               ),
             ],
           ),
         ),
-        body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                context.read<GameCubit>().addPlayer(const Player(
-                      id: 0,
-                      name: 'George',
-                      throws: [],
-                    ));
-                context.read<GameCubit>().addPlayer(
-                      const Player(
-                        id: 1,
-                        name: 'Natalie',
-                        throws: [],
-                      ),
-                    );
-                context.read<GameCubit>().addPlayer(
-                      const Player(
-                        id: 2,
-                        name: 'Ruth',
-                        throws: [],
-                      ),
-                    );
-                context.read<GameCubit>().startGame();
-              },
-              child: const Text('Start game')),
+        floatingActionButton: FloatingActionButton.extended(
+            onPressed: () {
+              return context.read<GameCubit>().state.players.length >= 2
+                  ? context.read<GameCubit>().startGame()
+                  : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      behavior: SnackBarBehavior.fixed,
+                      backgroundColor:
+                          Theme.of(context).colorScheme.errorContainer,
+                      content: Text(
+                        l10n.minimumOfTwoPlayers,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.onErrorContainer,
+                        ),
+                      )));
+            },
+            icon: const Icon(Icons.start_rounded),
+            label: Text(l10n.startGameButton)),
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              AddPlayerForm(
+                onSubmit: (name) => context.read<GameCubit>().addPlayer(name),
+              ),
+              BlocBuilder<GameCubit, Game>(
+                builder: (context, state) {
+                  debugPrint(state.players.length.toString());
+
+                  return Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: state.players.length,
+                      itemBuilder: (context, index) {
+                        final player = state.players[index];
+                        return ListTile(
+                          title: Text(player.name),
+                          trailing: IconButton(
+                              onPressed: () => context
+                                  .read<GameCubit>()
+                                  .removePlayer(player.id),
+                              icon: const Icon(Icons.delete_rounded)),
+                        );
+                      },
+                    ),
+                  );
+                },
+              )
+            ],
+          ),
         ));
   }
 }

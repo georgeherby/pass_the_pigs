@@ -11,11 +11,22 @@ class GameCubit extends Cubit<Game> {
   }
 
   void endGame() {
-    emit(Game.initial());
+    emit(state.copyWith(
+        isGameActive: false,
+        players: state.players.map((e) => e.copyWith(throws: [])).toList()));
   }
 
-  void addPlayer(Player player) {
-    emit(state.copyWith(players: [...state.players, player]));
+  void addPlayer(String playerName) {
+    emit(state.copyWith(players: [
+      ...state.players,
+      Player(id: state.players.length, name: playerName, throws: const [])
+    ]));
+  }
+
+  void removePlayer(int playerId) {
+    emit(state.copyWith(
+        players:
+            state.players.where((player) => player.id != playerId).toList()));
   }
 
   void nextPlayer() {

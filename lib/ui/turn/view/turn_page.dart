@@ -93,14 +93,15 @@ class TurnCalculatorView extends StatelessWidget {
                           onPressed: () => Navigator.of(context).pop(),
                         ),
                       ),
-                      ...List.generate(
-                          allPlayers.length,
-                          (index) => ListTile(
-                                selected: allPlayers[index].id == player.id,
-                                title: Text(allPlayers[index].name),
-                                trailing:
-                                    Text(allPlayers[index].score.toString()),
-                              ))
+                      Expanded(
+                          child: ListView.builder(
+                              itemCount: allPlayers.length,
+                              itemBuilder: (contextm, index) => ListTile(
+                                    selected: allPlayers[index].id == player.id,
+                                    title: Text(allPlayers[index].name),
+                                    trailing: Text(
+                                        allPlayers[index].score.toString()),
+                                  )))
                     ],
                   );
                 }),

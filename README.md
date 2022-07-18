@@ -40,7 +40,7 @@ _\*Pass The Pigs works on iOS, Android, Web, and Windows._
 To run all unit and widget tests use the following command:
 
 ```sh
-$ flutter test --coverage --test-randomize-ordering-seed random
+flutter test --coverage --test-randomize-ordering-seed random
 ```
 
 To view the generated coverage report you can use [lcov](https://github.com/linux-test-project/lcov).
@@ -66,8 +66,8 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 ```arb
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
+    "appBarTitle": "Counter",
+    "@appBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     }
 }
@@ -78,8 +78,8 @@ This project relies on [flutter_localizations][flutter_localizations_link] and f
 ```arb
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
+    "appBarTitle": "Counter",
+    "@appBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     },
     "helloWorld": "Hello World",
@@ -109,10 +109,10 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
     ...
 
     <key>CFBundleLocalizations</key>
-	<array>
-		<string>en</string>
-		<string>es</string>
-	</array>
+ <array>
+  <string>en</string>
+  <string>es</string>
+ </array>
 
     ...
 ```
@@ -135,8 +135,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 ```arb
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
+    "appBarTitle": "Counter",
+    "@appBarTitle": {
         "description": "Text shown in the AppBar of the Counter Page"
     }
 }
@@ -147,8 +147,8 @@ Update the `CFBundleLocalizations` array in the `Info.plist` at `ios/Runner/Info
 ```arb
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
+    "appBarTitle": "Contador",
+    "@appBarTitle": {
         "description": "Texto mostrado en la AppBar de la página del contador"
     }
 }

@@ -16,9 +16,6 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: lightColorScheme,
         scaffoldBackgroundColor: lightColorScheme.background,
-        // textTheme: GoogleFonts.dmSerifDisplayTextTheme(
-        //   ThemeData.light().textTheme,
-        // ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -26,9 +23,6 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: darkColorScheme,
         scaffoldBackgroundColor: darkColorScheme.background,
-        // textTheme: GoogleFonts.dmSerifDisplayTextTheme(
-        //   ThemeData.dark().textTheme,
-        // ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,
