@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/common/common.dart';
-import 'package:pass_the_pigs/pages/game/cubit/game_cubit.dart';
-import 'package:pass_the_pigs/pages/game/models/game.dart';
-import 'package:pass_the_pigs/pages/game/views/game_inactive_view.dart';
-import 'package:pass_the_pigs/pages/turn/view/turn_page.dart';
+import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
+import 'package:pass_the_pigs/ui/game/models/game.dart';
+import 'package:pass_the_pigs/ui/game/views/game_inactive_view.dart';
+import 'package:pass_the_pigs/ui/turn/view/turn_page.dart';
 
 class GamePage extends StatelessWidget {
   const GamePage({super.key});

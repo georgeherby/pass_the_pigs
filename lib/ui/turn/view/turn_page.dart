@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
-import 'package:pass_the_pigs/pages/game/cubit/game_cubit.dart';
-import 'package:pass_the_pigs/pages/game/models/player.dart';
-import 'package:pass_the_pigs/pages/turn/cubit/turn_cubit.dart';
-import 'package:pass_the_pigs/pages/turn/enums/pig.dart';
-import 'package:pass_the_pigs/pages/turn/enums/position.dart';
-import 'package:pass_the_pigs/pages/turn/view/widgets/making_bacon_dialog.dart';
-import 'package:pass_the_pigs/pages/turn/view/widgets/turn_score_card.dart';
-import 'package:pass_the_pigs/pages/turn/view/widgets/choice_button.dart';
+import 'package:pass_the_pigs/ui/common/destructive_dialog.dart';
+import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
+import 'package:pass_the_pigs/ui/game/models/player.dart';
+import 'package:pass_the_pigs/ui/turn/cubit/turn_cubit.dart';
+import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
+import 'package:pass_the_pigs/ui/turn/enums/position.dart';
+import 'package:pass_the_pigs/ui/turn/view/widgets/making_bacon_dialog.dart';
+import 'package:pass_the_pigs/ui/turn/view/widgets/turn_score_card.dart';
+import 'package:pass_the_pigs/ui/turn/view/widgets/choice_button.dart';
 
 class TurnCalculatorPage extends StatelessWidget {
   const TurnCalculatorPage(
@@ -50,8 +51,8 @@ class TurnCalculatorView extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton.extended(
+        tooltip: 'Go to next player',
         label: Text(l10n.nextPlayerFab),
         onPressed: () {
           final state = context.read<TurnCalculatorCubit>().state;
@@ -104,11 +105,22 @@ class TurnCalculatorView extends StatelessWidget {
                   );
                 }),
             icon: const Icon(Icons.scoreboard_outlined),
+            tooltip: 'Open scoreboard',
           ),
         ],
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_rounded),
-          onPressed: () => context.read<GameCubit>().endGame(),
+          icon: const Icon(Icons.logout_rounded),
+          tooltip: 'End game',
+          onPressed: () => showDialog(
+              context: context,
+              builder: (_) => DestructiveDialog(
+                  onConfirm: () {
+                    Navigator.of(context).pop();
+                    context.read<GameCubit>().endGame();
+                  },
+                  title: l10n.endGameDialogTitle,
+                  content: l10n.endGameDialogContent,
+                  onCancel: () => Navigator.of(context).pop())),
         ),
         centerTitle: true,
         title: Text(player.name),

@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/common/common.dart';
-import 'package:pass_the_pigs/pages/turn/enums/pig.dart';
-import 'package:pass_the_pigs/pages/turn/enums/position.dart';
+import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
+import 'package:pass_the_pigs/ui/turn/enums/position.dart';
 
 class TurnCalculatorCubit extends Cubit<Throw> {
   TurnCalculatorCubit() : super(const Throw());

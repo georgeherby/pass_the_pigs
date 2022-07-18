@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pass_the_pigs/pages/game/game.dart';
+import 'package:pass_the_pigs/ui/game/game.dart';
 import 'package:pass_the_pigs/theme/color_schemes.g.dart';
 
 class App extends StatelessWidget {
@@ -17,9 +17,9 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: lightColorScheme,
         scaffoldBackgroundColor: lightColorScheme.background,
-        textTheme: GoogleFonts.dmSerifDisplayTextTheme(
-          ThemeData.light().textTheme,
-        ),
+        // textTheme: GoogleFonts.dmSerifDisplayTextTheme(
+        //   ThemeData.light().textTheme,
+        // ),
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -27,9 +27,9 @@ class App extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: darkColorScheme,
         scaffoldBackgroundColor: darkColorScheme.background,
-        textTheme: GoogleFonts.dmSerifDisplayTextTheme(
-          ThemeData.dark().textTheme,
-        ),
+        // textTheme: GoogleFonts.dmSerifDisplayTextTheme(
+        //   ThemeData.dark().textTheme,
+        // ),
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
-import 'package:pass_the_pigs/pages/game/cubit/game_cubit.dart';
-import 'package:pass_the_pigs/pages/game/models/player.dart';
+import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
+import 'package:pass_the_pigs/ui/game/models/player.dart';
 
 class GameInactiveView extends StatelessWidget {
   const GameInactiveView({super.key});
@@ -18,7 +19,7 @@ class GameInactiveView extends StatelessWidget {
             children: [
               Text(
                 l10n.counterAppBarTitle.toUpperCase(),
-                style: TextStyle(
+                style: GoogleFonts.dmSerifDisplay(
                   fontWeight: FontWeight.bold,
                   foreground: Paint()
                     ..style = PaintingStyle.stroke
@@ -28,7 +29,7 @@ class GameInactiveView extends StatelessWidget {
               ),
               Text(
                 l10n.counterAppBarTitle.toUpperCase(),
-                style: TextStyle(
+                style: GoogleFonts.dmSerifDisplay(
                   color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
               ),

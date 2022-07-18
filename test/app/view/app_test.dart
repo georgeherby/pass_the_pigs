@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:pass_the_pigs/app/app.dart';
-import 'package:pass_the_pigs/pages/game/game.dart';
+import 'package:pass_the_pigs/ui/game/game.dart';
 
 void main() {
   group('App', () {

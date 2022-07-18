@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pass_the_pigs/pages/turn/cubit/turn_cubit.dart';
-import 'package:pass_the_pigs/pages/turn/enums/pig.dart';
-import 'package:pass_the_pigs/pages/turn/enums/position.dart';
+import 'package:pass_the_pigs/ui/turn/cubit/turn_cubit.dart';
+import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
+import 'package:pass_the_pigs/ui/turn/enums/position.dart';
 
 class ChoiceButton extends StatefulWidget {
   const ChoiceButton({
@@ -44,13 +44,7 @@ class _ChoiceButtonState extends State<ChoiceButton> {
         child: Center(
           child: Column(
             children: [
-              Text(
-                widget.valueOfButton.displayText,
-                style: TextStyle(
-                    color: isSelected
-                        ? Theme.of(context).colorScheme.onSecondaryContainer
-                        : Theme.of(context).colorScheme.onSurface),
-              ),
+              Text(widget.valueOfButton.displayText),
             ],
           ),
         ),

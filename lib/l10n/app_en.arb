@@ -47,6 +47,14 @@
     "turnNotComplete": "Turn is not complete",
     "@turnNotComplete": {
         "description": "Error when turn is not complete"
+    },
+    "endGameDialogTitle": "Are you sure?",
+    "@endGameDialogTitle": {
+        "description": "Title for end game dialog"
+    },
+    "endGameDialogContent": "This will result in the termination of the game and the loss of your existing scorecard.",
+    "@endGameDialogContent": {
+        "description": "Conetnt for end game dialog"
     }
     
 }

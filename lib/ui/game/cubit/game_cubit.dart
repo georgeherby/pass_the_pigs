@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:pass_the_pigs/common/common.dart';
-import 'package:pass_the_pigs/pages/game/models/game.dart';
-import 'package:pass_the_pigs/pages/game/models/player.dart';
+import 'package:pass_the_pigs/ui/game/models/game.dart';
+import 'package:pass_the_pigs/ui/game/models/player.dart';
 
 class GameCubit extends Cubit<Game> {
   GameCubit() : super(Game.initial());

@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:pass_the_pigs/pages/turn/enums/pig.dart';
-import 'package:pass_the_pigs/pages/turn/enums/position.dart';
+import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
+import 'package:pass_the_pigs/ui/turn/enums/position.dart';
 
 class Throw extends Equatable {
   const Throw({this.pigOne, this.pigTwo});

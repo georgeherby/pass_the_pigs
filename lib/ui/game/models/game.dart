@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:pass_the_pigs/pages/game/models/player.dart';
+import 'package:pass_the_pigs/ui/game/models/player.dart';
 
 class Game extends Equatable {
   const Game(
