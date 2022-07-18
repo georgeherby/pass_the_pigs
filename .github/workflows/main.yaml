@@ -57,5 +57,4 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: debug-apk
-          path: |
-            build/app/outputs/flutter-apk/app-armeabi-v7a-development-debug.apk
+          path: build/app/outputs/flutter-apk/*-development-debug.apk
