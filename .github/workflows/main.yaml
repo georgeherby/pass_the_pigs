@@ -68,7 +68,7 @@ jobs:
           done
 
       - name: 💾 Upload artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3.1.0
         with:
           name: debug-apk
-          path: build/app/outputs/flutter-apk//*-development-debug.apk
+          path: build/app/outputs/flutter-apk/*-development-debug.apk
