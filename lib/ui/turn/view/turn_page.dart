@@ -96,7 +96,7 @@ class TurnCalculatorView extends StatelessWidget {
                       Expanded(
                           child: ListView.builder(
                               itemCount: allPlayers.length,
-                              itemBuilder: (contextm, index) => ListTile(
+                              itemBuilder: (context, index) => ListTile(
                                     selected: allPlayers[index].id == player.id,
                                     title: Text(allPlayers[index].name),
                                     trailing: Text(

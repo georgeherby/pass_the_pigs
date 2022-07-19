@@ -23,6 +23,8 @@ dependencies:
 dev_dependencies:
   bloc_test: ^9.0.3
   flutter_lints: ^2.0.1
+  flutter_launcher_icons: ^0.9.3
+  flutter_native_splash: ^2.2.5
   flutter_test:
     sdk: flutter
   mocktail: ^0.3.0
