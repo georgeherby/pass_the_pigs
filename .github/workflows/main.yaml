@@ -53,6 +53,20 @@ jobs:
       - name: 🏗️ Build debug APK
         run: flutter build apk --debug --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER --flavor development --target lib/main_development.dart
 
+      - name: Fetch action
+        id: pl
+        uses: Rishabh510/Path-lister-action@master
+        with:
+          path: "build/app/outputs/flutter-apk/"
+          type: ".apk"
+
+      - name: Output results
+        run: |
+          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
+          for i in ${{ steps.pl.outputs.paths }}; do
+          echo $i
+          done
+
       - name: 💾 Upload artifacts
         uses: actions/upload-artifact@v1
         with:
