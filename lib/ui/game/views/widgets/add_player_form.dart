@@ -21,6 +21,12 @@ class AddPlayerForm extends StatelessWidget {
           child: Column(
             children: <Widget>[
               TextFormField(
+                keyboardType: TextInputType.text,
+                textInputAction: TextInputAction.go,
+                onFieldSubmitted: (value) {
+                  onSubmit(value);
+                  nameController.clear();
+                },
                 focusNode: nameFocusNode,
                 controller: nameController,
                 decoration: InputDecoration(
