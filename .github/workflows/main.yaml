@@ -19,16 +19,22 @@ jobs:
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         env:
-          KEY_JKS: ${{ secrets.KEY_JKS }}
           ANDROID_KEYSTORE_PATH: ../key.jks
           ANDROID_KEYSTORE_ALIAS: release
           ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-          run: echo $KEY_JKS | base64 --decode > ./android/key.jks 
         with:
           flutter-version: 3.3.0-0.0.pre
           channel: master
           cache: true
+
+      - name: Create JKS file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: 'key.jks'
+          fileDir: './android/'
+          encodedString: ${{ secrets.KEY_JKS }}
+
 
       - name: 📦 Install Dependencies
         run: |
