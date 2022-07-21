@@ -48,10 +48,6 @@ class _GameWinnerViewState extends State<GameWinnerView> {
               alignment: Alignment.center,
               child: ConfettiWidget(
                 confettiController: _controllerCenter,
-                particleDrag: 0.05, // apply drag to the confetti
-                emissionFrequency: 0.05, // how often it should emit
-                numberOfParticles: 20, // number of particles to emit
-                gravity: 0.05, // gravity - or fall speed
                 blastDirectionality: BlastDirectionality
                     .explosive, // don't specify a direction, blast randomly
                 shouldLoop:
