@@ -54,7 +54,7 @@
     },
     "endGameDialogContent": "This will result in the termination of the game and the loss of your existing scorecard.",
     "@endGameDialogContent": {
-        "description": "Conetnt for end game dialog"
+        "description": "Content for end game dialog"
     },
     "enterPlayerName": "Enter player name",
     "@enterPlayerName": {
