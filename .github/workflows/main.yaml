@@ -24,7 +24,7 @@ jobs:
           ANDROID_KEYSTORE_ALIAS: release
           ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        run: echo $KEY_JKS | base64 --decode > ./android/key.jks 
+          run: echo $KEY_JKS | base64 --decode > ./android/key.jks 
         with:
           flutter-version: 3.3.0-0.0.pre
           channel: master
