@@ -52,12 +52,10 @@ class _GameWinnerViewState extends State<GameWinnerView> {
                     .explosive, // don't specify a direction, blast randomly
                 shouldLoop:
                     true, // start again as soon as the animation is finished
-                colors: const [
-                  Colors.green,
-                  Colors.blue,
-                  Colors.pink,
-                  Colors.orange,
-                  Colors.purple
+                colors: [
+                  Theme.of(context).colorScheme.primary,
+                  Theme.of(context).colorScheme.secondary,
+                  Theme.of(context).colorScheme.tertiary,
                 ],
               ),
             ),
