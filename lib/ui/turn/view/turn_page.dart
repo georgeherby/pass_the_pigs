@@ -187,8 +187,7 @@ class TurnCalculatorViewBody extends StatelessWidget {
                             color: Theme.of(context).colorScheme.error,
                             width: 1,
                           ),
-                          primary: Theme.of(context).colorScheme.error, //TODO
-                          // foregroundColor: Theme.of(context).colorScheme.error, //TODO
+                          foregroundColor: Theme.of(context).colorScheme.error,
                           backgroundColor:
                               Theme.of(context).colorScheme.surface,
                           surfaceTintColor:
