@@ -50,9 +50,11 @@ class GameView extends StatelessWidget {
             },
           );
         } else if (state.isGameActive && state.hasWinner) {
-          return GameWinnerView(
-              winnerName:
-                  '${context.read<GameCubit>().state.players[context.read<GameCubit>().state.currentPlayer].name} wins!');
+          final player = context
+              .read<GameCubit>()
+              .state
+              .players[context.read<GameCubit>().state.currentPlayer];
+          return GameWinnerView(score: player.score, winnerName: player.name);
         } else {
           return const GameInactiveView();
         }

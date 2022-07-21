@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
 
 class GameWinnerView extends StatefulWidget {
-  const GameWinnerView({super.key, required this.winnerName});
+  const GameWinnerView(
+      {super.key, required this.winnerName, required this.score});
   final String winnerName;
+  final int score;
 
   @override
   State<GameWinnerView> createState() => _GameWinnerViewState();
@@ -46,6 +48,10 @@ class _GameWinnerViewState extends State<GameWinnerView> {
               alignment: Alignment.center,
               child: ConfettiWidget(
                 confettiController: _controllerCenter,
+                particleDrag: 0.05, // apply drag to the confetti
+                emissionFrequency: 0.05, // how often it should emit
+                numberOfParticles: 20, // number of particles to emit
+                gravity: 0.05, // gravity - or fall speed
                 blastDirectionality: BlastDirectionality
                     .explosive, // don't specify a direction, blast randomly
                 shouldLoop:
@@ -61,7 +67,15 @@ class _GameWinnerViewState extends State<GameWinnerView> {
             ),
             Align(
                 alignment: Alignment.center,
-                child: Text('${widget.winnerName} wins!')),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(widget.score.toString(),
+                        style: Theme.of(context).textTheme.displayLarge),
+                    Text('${widget.winnerName} wins!',
+                        style: Theme.of(context).textTheme.displaySmall),
+                  ],
+                )),
           ],
         ),
       ),
