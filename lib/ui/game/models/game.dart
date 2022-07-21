@@ -19,6 +19,9 @@ class Game extends Equatable {
   final List<Player> players;
   final bool isGameActive;
 
+  bool get hasWinner =>
+      isGameActive && players.any((player) => player.isWinner);
+
   @override
   List<Object> get props => [currentPlayer, players, isGameActive];
 
@@ -26,6 +29,7 @@ class Game extends Equatable {
     int? currentPlayer,
     List<Player>? players,
     bool? isGameActive,
+    bool? hasWinner,
   }) {
     return Game(
       currentPlayer: currentPlayer ?? this.currentPlayer,

@@ -26,6 +26,7 @@ class AddPlayerForm extends StatelessWidget {
                 onFieldSubmitted: (value) {
                   onSubmit(value);
                   nameController.clear();
+                  nameFocusNode.requestFocus();
                 },
                 focusNode: nameFocusNode,
                 controller: nameController,
