@@ -1,6 +1,10 @@
 name: pass_the_pigs
 
-on: [pull_request, push]
+on:
+  push:
+    branches:
+      - main
+      - "releases/**"
 
 jobs:
   build:
@@ -18,11 +22,6 @@ jobs:
 
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
-        env:
-          ANDROID_KEYSTORE_PATH: ../key.jks
-          ANDROID_KEYSTORE_ALIAS: release
-          ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
-          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         with:
           flutter-version: 3.3.0-0.1.pre
           channel: beta
@@ -34,20 +33,6 @@ jobs:
           fileName: "key.jks"
           fileDir: "./android/"
           encodedString: ${{ secrets.KEY_JKS }}
-
-      - name: Fetch action
-        id: pl
-        uses: Rishabh510/Path-lister-action@master
-        with:
-          path: "./android/"
-          type: ".jks"
-
-      - name: Output results
-        run: |
-          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-          for i in ${{ steps.pl.outputs.paths }}; do
-          echo $i
-          done
 
       - name: 📦 Install Dependencies
         run: |
@@ -76,7 +61,7 @@ jobs:
         with:
           token: ${{secrets.github_token}}
 
-      - name: 🏗️ Build debug APK
+      - name: 🏗️ Build release (Android)
         env:
           ANDROID_KEYSTORE_PATH: ../key.jks
           ANDROID_KEYSTORE_ALIAS: release
@@ -88,4 +73,4 @@ jobs:
         uses: actions/upload-artifact@v3.1.0
         with:
           name: debug-apk
-          path: build/app/outputs/flutter-apk/*-development-debug.apk
+          path: build/app/outputs/flutter-apk/*-production-release.apk
