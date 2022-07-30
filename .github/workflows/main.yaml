@@ -35,6 +35,19 @@ jobs:
           fileDir: './android/'
           encodedString: ${{ secrets.KEY_JKS }}
 
+      - name: Fetch action
+        id: pl
+        uses: Rishabh510/Path-lister-action@master
+        with:
+          path: "./android/"
+          type: ".jks"
+
+      - name: Output results
+        run: |
+          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
+          for i in ${{ steps.pl.outputs.paths }}; do
+          echo $i
+          done
 
       - name: 📦 Install Dependencies
         run: |
