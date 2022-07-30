@@ -1,4 +1,4 @@
-name: pass_the_pigs
+name: release_workflow
 
 on:
   push:
