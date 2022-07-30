@@ -24,15 +24,15 @@ jobs:
           ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         with:
-          flutter-version: 3.3.0-0.0.pre
-          channel: master
+          flutter-version: 3.3.0-0.1.pre
+          channel: beta
           cache: true
 
       - name: Create JKS file
         uses: timheuer/base64-to-file@v1.1
         with:
-          fileName: 'key.jks'
-          fileDir: './android/'
+          fileName: "key.jks"
+          fileDir: "./android/"
           encodedString: ${{ secrets.KEY_JKS }}
 
       - name: Fetch action
@@ -77,6 +77,11 @@ jobs:
           token: ${{secrets.github_token}}
 
       - name: 🏗️ Build debug APK
+        env:
+          ANDROID_KEYSTORE_PATH: ../key.jks
+          ANDROID_KEYSTORE_ALIAS: release
+          ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
         run: flutter build apk --release --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER --flavor production --target lib/main_production.dart
 
       - name: 💾 Upload artifacts
