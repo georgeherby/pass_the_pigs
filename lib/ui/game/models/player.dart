@@ -22,6 +22,8 @@ class Player extends Equatable {
   int get score =>
       throws.fold(0, (acc, throwItem) => acc + throwItem.getScore());
 
+  bool get isWinner => score > 100;
+
   Player copyWith({
     int? id,
     String? playerName,

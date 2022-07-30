@@ -1,0 +1,76 @@
+name: pass_the_pigs
+
+on:
+  push:
+    branches:
+      - main
+      - "releases/**"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v2
+
+      - name: 💪 Setup Java
+        uses: actions/setup-java@v2
+        with:
+          distribution: "zulu"
+          java-version: "11"
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.3.0-0.1.pre
+          channel: beta
+          cache: true
+
+      - name: Create JKS file
+        uses: timheuer/base64-to-file@v1.1
+        with:
+          fileName: "key.jks"
+          fileDir: "./android/"
+          encodedString: ${{ secrets.KEY_JKS }}
+
+      - name: 📦 Install Dependencies
+        run: |
+          flutter pub global activate very_good_cli
+          very_good --analytics false
+          very_good packages get --recursive
+
+      - name: ✨ Check Formatting
+        run: flutter format --set-exit-if-changed lib test
+
+      - name: 🕵️ Analyze
+        run: flutter analyze lib test
+
+      - name: 🧪 Run Tests
+        run: very_good test -j 4 --coverage --test-randomize-ordering-seed random
+
+      - name: 📊 Check Code Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v1
+        with:
+          path: ./coverage/lcov.info
+          exclude: ""
+          min_coverage: 10
+
+      - name: 🔢 Generate build number
+        uses: einaregilsson/build-number@v3
+        with:
+          token: ${{secrets.github_token}}
+
+      - name: 🏗️ Build release (Android)
+        env:
+          ANDROID_KEYSTORE_PATH: ../key.jks
+          ANDROID_KEYSTORE_ALIAS: release
+          ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: flutter build apk --release --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER --flavor production --target lib/main_production.dart
+
+      - name: 💾 Upload artifacts
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: debug-apk
+          path: build/app/outputs/flutter-apk/*-production-release.apk

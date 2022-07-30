@@ -4,6 +4,7 @@ import 'package:pass_the_pigs/common/common.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
 import 'package:pass_the_pigs/ui/game/models/game.dart';
 import 'package:pass_the_pigs/ui/game/views/game_inactive_view.dart';
+import 'package:pass_the_pigs/ui/game/views/game_winner_view.dart';
 import 'package:pass_the_pigs/ui/turn/view/turn_page.dart';
 
 class GamePage extends StatelessWidget {
@@ -28,7 +29,8 @@ class GameView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GameCubit, Game>(
       builder: (context, state) {
-        if (state.isGameActive) {
+        debugPrint('GameView state: ${state.hasWinner}');
+        if (state.isGameActive && !state.hasWinner) {
           debugPrint(state.toString());
           return TurnCalculatorPage(
             onMakingBacon: () {
@@ -39,9 +41,20 @@ class GameView extends StatelessWidget {
             player: state.players[state.currentPlayer],
             goToNextPlayer: (Throw throwToAdd) {
               context.read<GameCubit>().addThrowToPlayer(throwToAdd);
-              context.read<GameCubit>().nextPlayer();
+              if (!context.read<GameCubit>().state.hasWinner) {
+                debugPrint('No winner do continue to next player');
+                context.read<GameCubit>().nextPlayer();
+              } else {
+                debugPrint('Game is over');
+              }
             },
           );
+        } else if (state.isGameActive && state.hasWinner) {
+          final player = context
+              .read<GameCubit>()
+              .state
+              .players[context.read<GameCubit>().state.currentPlayer];
+          return GameWinnerView(score: player.score, winnerName: player.name);
         } else {
           return const GameInactiveView();
         }

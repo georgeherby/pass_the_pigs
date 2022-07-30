@@ -41,6 +41,7 @@ class GameCubit extends Cubit<Game> {
     final player = state.players[state.currentPlayer];
 
     final updatedPlayer = player.addThrowToPlayer(newThrow);
+
     emit(state.updatePlayer(updatedPlayer));
   }
 

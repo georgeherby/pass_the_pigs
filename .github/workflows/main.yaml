@@ -1,6 +1,11 @@
 name: pass_the_pigs
 
-on: [pull_request, push]
+on:
+  push:
+    branches-ignore:
+      - main
+      - 'releases/**'
+  pull_request:
 
 jobs:
   build:
@@ -10,17 +15,11 @@ jobs:
       - name: 📚 Git Checkout
         uses: actions/checkout@v2
 
-      - name: 💪 Setup Java
-        uses: actions/setup-java@v2
-        with:
-          distribution: "zulu"
-          java-version: "11"
-
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: 3.1.0-0.0.pre.1696
-          channel: master
+          flutter-version: 3.3.0-0.1.pre
+          channel: beta
           cache: true
 
       - name: 📦 Install Dependencies
@@ -45,16 +44,4 @@ jobs:
           exclude: ""
           min_coverage: 10
 
-      - name: 🔢 Generate build number
-        uses: einaregilsson/build-number@v3
-        with:
-          token: ${{secrets.github_token}}
-
-      - name: 🏗️ Build debug APK
-        run: flutter build apk --debug --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER --flavor development --target lib/main_development.dart
-
-      - name: 💾 Upload artifacts
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: debug-apk
-          path: build/app/outputs/flutter-apk/*-development-debug.apk
+   
