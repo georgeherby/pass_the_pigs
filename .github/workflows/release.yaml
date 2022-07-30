@@ -1,4 +1,4 @@
-name: pass_the_pigs
+name: release_workflow
 
 on:
   push:
@@ -72,5 +72,5 @@ jobs:
       - name: 💾 Upload artifacts
         uses: actions/upload-artifact@v3.1.0
         with:
-          name: debug-apk
+          name: release-apks
           path: build/app/outputs/flutter-apk/*-production-release.apk

@@ -1,0 +1,14 @@
+{
+    "dart.flutterSdkPath": ".fvm/flutter_sdk",
+    // Remove .fvm files from search
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    },
+    "yaml.schemas": {
+        "https://json.schemastore.org/github-workflow.json": "file:///Users/george/dev/personal/flutter/pass_the_pigs/.github/workflows/main.yaml"
+    }
+}
