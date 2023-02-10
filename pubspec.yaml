@@ -4,10 +4,10 @@ version: 1.0.0+1
 publish_to: none
 
 environment:
-  sdk: ">=2.18.0-0 <3.0.0"
+  sdk: ">=2.19.2-0 <3.0.0"
 
 dependencies:
-  basic_utils: ^4.4.3
+  basic_utils: ^4.5.2
   bloc: ^8.0.3
   confetti: ^0.7.0
   equatable: ^2.0.3
@@ -16,8 +16,8 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_localizations:
     sdk: flutter
-  flutter_platform_widgets: ^2.0.0
-  google_fonts: ^3.0.1
+  flutter_platform_widgets: ^3.0.0
+  google_fonts: ^4.0.3
   intl: ^0.17.0
 
 dev_dependencies:
