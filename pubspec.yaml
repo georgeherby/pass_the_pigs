@@ -7,7 +7,7 @@ environment:
   sdk: ">=2.19.2-0 <3.0.0"
 
 dependencies:
-  basic_utils: ^4.5.2
+  basic_utils: ^5.0.0
   bloc: ^8.0.3
   confetti: ^0.7.0
   equatable: ^2.0.3
