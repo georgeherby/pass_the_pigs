@@ -15,14 +15,14 @@ class App extends StatelessWidget {
         brightness: Brightness.light,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: lightColorScheme,
-        scaffoldBackgroundColor: lightColorScheme.background,
+        scaffoldBackgroundColor: lightColorScheme.surface,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         colorScheme: darkColorScheme,
-        scaffoldBackgroundColor: darkColorScheme.background,
+        scaffoldBackgroundColor: darkColorScheme.surface,
       ),
       localizationsDelegates: const [
         AppLocalizations.delegate,
