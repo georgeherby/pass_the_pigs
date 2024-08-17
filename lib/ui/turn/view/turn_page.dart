@@ -74,7 +74,7 @@ class TurnCalculatorView extends StatelessWidget {
         },
         icon: const Icon(Icons.arrow_forward_rounded),
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         actions: [
           IconButton(
