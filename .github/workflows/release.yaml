@@ -67,10 +67,10 @@ jobs:
           ANDROID_KEYSTORE_ALIAS: release
           ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD }}
           ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
-        run: flutter build apk --release --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER --flavor production --target lib/main_production.dart
+        run: flutter build apk --release --split-per-abi --build-name=0.0.$BUILD_NUMBER --build-number=$BUILD_NUMBER
 
       - name: 💾 Upload artifacts
         uses: actions/upload-artifact@v3.1.3
         with:
           name: release-apks
-          path: build/app/outputs/flutter-apk/*-production-release.apk
+          path: build/app/outputs/flutter-apk/*-release.apk
