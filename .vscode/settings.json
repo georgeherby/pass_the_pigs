@@ -11,5 +11,5 @@
   "yaml.schemas": {
     "https://json.schemastore.org/github-workflow.json": "file:///Users/george/dev/personal/flutter/pass_the_pigs/.github/workflows/main.yaml"
   },
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "automatic"
 }
