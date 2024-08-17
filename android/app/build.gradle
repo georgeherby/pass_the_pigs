@@ -66,27 +66,6 @@ android {
         }
     }
 
-    flavorDimensions += "default"
-    
-    productFlavors { 
-        create("production") {
-            dimension = "default"
-            // resValue(type = "string", name="app_name", value = "Pass The Pigs")
-            applicationIdSuffix = ""
-        }
-        create("development") {
-            dimension = "default"
-            // resValue(type = "string", name="app_name", value = "[DEV] Pass The Pigs")
-            applicationIdSuffix = ".dev"
-        }
-        create("staging") {
-            dimension = "default"
-            // resValue(type = "string", name="app_name", value = "[STG] Pass The Pigs")
-            applicationIdSuffix = ".stg"
-        }
-
-    }
-
     splits {
 
         // Configures multiple APKs based on ABI.
