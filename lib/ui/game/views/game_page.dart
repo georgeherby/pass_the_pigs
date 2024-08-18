@@ -31,7 +31,6 @@ class GameView extends StatelessWidget {
       builder: (context, state) {
         debugPrint('GameView state: ${state.hasWinner}');
         if (state.isGameActive && !state.hasWinner) {
-          debugPrint(state.toString());
           return TurnCalculatorPage(
             onOffTheTable: () {
               context.read<GameCubit>().resetAllThrows();
