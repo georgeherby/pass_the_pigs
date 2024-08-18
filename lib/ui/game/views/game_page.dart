@@ -33,14 +33,14 @@ class GameView extends StatelessWidget {
         if (state.isGameActive && !state.hasWinner) {
           debugPrint(state.toString());
           return TurnCalculatorPage(
-            onMakingBacon: () {
-              context.read<GameCubit>().makingBacon();
+            onOffTheTable: () {
+              context.read<GameCubit>().resetAllThrows();
               context.read<GameCubit>().nextPlayer();
             },
             allPlayers: state.players,
             player: state.players[state.currentPlayer],
-            goToNextPlayer: (Throw throwToAdd) {
-              context.read<GameCubit>().addThrowToPlayer(throwToAdd);
+            goToNextPlayer: (List<Throw> throwsToAdd) {
+              context.read<GameCubit>().addTurnToPlayer(throwsToAdd);
               if (!context.read<GameCubit>().state.hasWinner) {
                 debugPrint('No winner do continue to next player');
                 context.read<GameCubit>().nextPlayer();

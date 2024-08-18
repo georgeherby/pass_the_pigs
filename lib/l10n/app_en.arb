@@ -16,25 +16,37 @@
     "@pigTwoLabel": {
         "description": "Text shown in the Label for Pig Two"
     },
-    "turnScoreLabel": "Turn Score",
+    "rollScoreLabel": "Roll",
+    "@rollScoreLabel": {
+        "description": "Text shown in the Label for Roll Score"
+    },
+    "turnScoreLabel": "Turn",
     "@turnScoreLabel": {
         "description": "Text shown in the Label for Turn Score"
     },
-    "endTurnButtonLabel": "End turn",
+    "endTurnButtonLabel": "Save and end turn",
     "@endTurnButtonLabel": {
         "description": "End turn button label"
     },
-    "nextPlayerFab": "Next player",
+    "nextPlayerFab": "Save and end turn",
     "@nextPlayerFab": {
         "description": "FAB label for next player"
     },
-    "makingBacon": "Making Bacon",
+    "makingBacon": "Making bacon (score 0 and end turn)",
     "@makingBacon": {
-        "description": "Text shown when throw is Making Bacon"
+        "description": "Text shown when throw is Making bacon"
     },
-    "makingBaconDialogBody": "This will reset your game score to 0.",
+    "makingBaconDialogBody": "This will reset your game score to 0 and end your turn.",
     "@makingBaconDialogBody": {
-        "description": "Body of Making Bacon dialog"
+        "description": "Body of Making bacon dialog"
+    },
+    "offTheTable": "Off the table (reset total score)",
+    "@offTheTable": {
+        "description": "Text shown when throw is Off the table"
+    },
+    "offTheTableDialogBody": "This will reset your game score to 0.",
+    "@offTheTableDialogBody": {
+        "description": "Body of Off the table dialog"
     },
     "cancel": "Cancel",
     "@cancel": {

@@ -11,16 +11,16 @@ class Player extends Equatable {
   @override
   List<Object> get props => [id, name, throws];
 
-  Player addThrowToPlayer(Throw newThrow) {
-    return copyWith(throws: [...throws, newThrow]);
+  Player addThrowsToPlayer(List<Throw> newThrows) {
+    return copyWith(throws: [...throws, ...newThrows]);
   }
 
-  Player makingBacon() {
+  Player resetAllThrows() {
     return copyWith(throws: []);
   }
 
   int get score =>
-      throws.fold(0, (acc, throwItem) => acc + throwItem.getScore());
+      throws.fold(0, (acc, throwItem) => acc + (throwItem.getScore() ?? 0));
 
   bool get isWinner => score > 100;
 

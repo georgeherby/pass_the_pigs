@@ -3,8 +3,9 @@ import 'package:pass_the_pigs/common/common.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 
 class TurnScoreCard extends StatelessWidget {
-  const TurnScoreCard(this.turn, {super.key});
-  final Throw turn;
+  const TurnScoreCard(this.currentThrow, this.turnScore, {super.key});
+  final Throw currentThrow;
+  final int turnScore;
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,26 @@ class TurnScoreCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 Column(
                   children: [
                     Text(
                       l10n.turnScoreLabel,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Text(
-                      '${turn.getScore()}',
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      '$turnScore',
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ],
                 ),
               ],
             ),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -43,8 +46,8 @@ class TurnScoreCard extends StatelessWidget {
                       height: 32,
                       width: 38,
                       child: Center(
-                        child: (turn.pigOne?.assetPath != null)
-                            ? Image.asset(turn.pigOne!.assetPath)
+                        child: (currentThrow.pigOne?.assetPath != null)
+                            ? Image.asset(currentThrow.pigOne!.assetPath)
                             : const Text('-'),
                       ),
                     ),
@@ -54,12 +57,24 @@ class TurnScoreCard extends StatelessWidget {
                 ),
                 Column(
                   children: [
+                    // Text(
+                    //   l10n.rollScoreLabel,
+                    //   style: Theme.of(context).textTheme.titleSmall,
+                    // ),
+                    Text(
+                      '${currentThrow.getScore() ?? ''}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
                     SizedBox(
                       height: 32,
                       width: 38,
                       child: Center(
-                        child: (turn.pigTwo?.assetPath != null)
-                            ? Image.asset(turn.pigTwo!.assetPath)
+                        child: (currentThrow.pigTwo?.assetPath != null)
+                            ? Image.asset(currentThrow.pigTwo!.assetPath)
                             : const Text('-'),
                       ),
                     ),
