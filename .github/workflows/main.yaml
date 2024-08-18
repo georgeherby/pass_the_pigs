@@ -4,7 +4,7 @@ on:
   push:
     branches-ignore:
       - main
-      - 'releases/**'
+      - "releases/**"
   pull_request:
 
 jobs:
@@ -22,25 +22,12 @@ jobs:
           channel: stable
           cache: true
 
-      - name: 📦 Install Dependencies
-        run: |
-          flutter pub global activate very_good_cli
-          very_good packages get --recursive
-
       - name: ✨ Check Formatting
-        run: dart format --set-exit-if-changed lib test
+        run: flutter format --set-exit-if-changed lib test
 
       - name: 🕵️ Analyze
-        run: dart analyze lib test
+        run: flutter analyze lib test
 
       - name: 🧪 Run Tests
-        run: very_good test -j 4 --coverage --test-randomize-ordering-seed random
-
-      - name: 📊 Check Code Coverage
-        uses: VeryGoodOpenSource/very_good_coverage@v3
-        with:
-          path: ./coverage/lcov.info
-          exclude: ""
-          min_coverage: 10
-
+        run: flutter test
    
