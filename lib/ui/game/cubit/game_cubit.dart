@@ -37,17 +37,17 @@ class GameCubit extends Cubit<Game> {
     }
   }
 
-  void addThrowToPlayer(Throw newThrow) {
+  void addTurnToPlayer(List<Throw> newThrows) {
     final player = state.players[state.currentPlayer];
 
-    final updatedPlayer = player.addThrowToPlayer(newThrow);
+    final updatedPlayer = player.addThrowsToPlayer(newThrows);
 
     emit(state.updatePlayer(updatedPlayer));
   }
 
-  void makingBacon() {
+  void resetAllThrows() {
     final player = state.players[state.currentPlayer];
-    final updatedPlayer = player.makingBacon();
+    final updatedPlayer = player.resetAllThrows();
 
     emit(state.updatePlayer(updatedPlayer));
   }

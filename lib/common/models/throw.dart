@@ -8,7 +8,7 @@ class Throw extends Equatable {
   final Position? pigOne;
   final Position? pigTwo;
 
-  bool get isTurnComplete => pigOne != null && pigTwo != null;
+  bool get isThrowComplete => pigOne != null && pigTwo != null;
 
   Throw removePig(Pig pig) {
     switch (pig) {

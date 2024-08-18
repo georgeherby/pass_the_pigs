@@ -11,11 +11,11 @@ class Player extends Equatable {
   @override
   List<Object> get props => [id, name, throws];
 
-  Player addThrowToPlayer(Throw newThrow) {
-    return copyWith(throws: [...throws, newThrow]);
+  Player addThrowsToPlayer(List<Throw> newThrows) {
+    return copyWith(throws: [...throws, ...newThrows]);
   }
 
-  Player makingBacon() {
+  Player resetAllThrows() {
     return copyWith(throws: []);
   }
 

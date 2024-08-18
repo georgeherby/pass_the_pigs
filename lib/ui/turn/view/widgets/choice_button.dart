@@ -22,7 +22,7 @@ class _ChoiceButtonState extends State<ChoiceButton> {
   @override
   Widget build(BuildContext context) {
     var isSelected =
-        context.read<TurnCalculatorCubit>().state.getPigPosition(widget.pig) ==
+        context.read<TurnCalculatorCubit>().currentThrow.getPigPosition(widget.pig) ==
             widget.valueOfButton;
 
     return FilterChip(

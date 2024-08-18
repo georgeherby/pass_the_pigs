@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
@@ -14,11 +15,11 @@ import 'package:pass_the_pigs/ui/turn/view/widgets/choice_button.dart';
 class TurnCalculatorPage extends StatelessWidget {
   const TurnCalculatorPage(
       {super.key,
-      required this.onMakingBacon,
+      required this.onOffTheTable,
       required this.goToNextPlayer,
       required this.player,
       required this.allPlayers});
-  final VoidCallback onMakingBacon;
+  final VoidCallback onOffTheTable;
   final Function goToNextPlayer;
   final Player player;
   final List<Player> allPlayers;
@@ -27,10 +28,11 @@ class TurnCalculatorPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => TurnCalculatorCubit(),
       child: TurnCalculatorView(
-          onMakingBacon: onMakingBacon,
-          goToNextPlayer: goToNextPlayer,
-          player: player,
-          allPlayers: allPlayers),
+        onOffTheTable: onOffTheTable,
+        goToNextPlayer: goToNextPlayer,
+        player: player,
+        allPlayers: allPlayers,
+      ),
     );
   }
 }
@@ -39,10 +41,10 @@ class TurnCalculatorView extends StatelessWidget {
   const TurnCalculatorView(
       {super.key,
       required this.goToNextPlayer,
-      required this.onMakingBacon,
+      required this.onOffTheTable,
       required this.player,
       required this.allPlayers});
-  final VoidCallback onMakingBacon;
+  final VoidCallback onOffTheTable;
   final Function goToNextPlayer;
   final Player player;
   final List<Player> allPlayers;
@@ -52,16 +54,21 @@ class TurnCalculatorView extends StatelessWidget {
     final l10n = context.l10n;
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        tooltip: 'Go to next player',
+        tooltip: 'End your turn and save current score',
         label: Text(l10n.nextPlayerFab),
         onPressed: () {
-          final state = context.read<TurnCalculatorCubit>().state;
+          final currentThrow = context.read<TurnCalculatorCubit>().currentThrow;
 
-          if (state.isTurnComplete) {
-            goToNextPlayer(state);
-            context.read<TurnCalculatorCubit>().reset();
+          if (currentThrow.isThrowComplete) {
+            final turnCubit = context.read<TurnCalculatorCubit>();
+            turnCubit.saveThrowToTurnAndResetThrow();
+
+            final throwsInTurn = context.read<TurnCalculatorCubit>().state;
+            goToNextPlayer(throwsInTurn);
+            turnCubit.resetTurn();
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
                 behavior: SnackBarBehavior.fixed,
                 backgroundColor: Theme.of(context).colorScheme.errorContainer,
                 content: Text(
@@ -69,10 +76,11 @@ class TurnCalculatorView extends StatelessWidget {
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.onErrorContainer,
                   ),
-                )));
+                ),
+              ),
+            );
           }
         },
-        icon: const Icon(Icons.arrow_forward_rounded),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
@@ -95,13 +103,15 @@ class TurnCalculatorView extends StatelessWidget {
                       ),
                       Expanded(
                           child: ListView.builder(
-                              itemCount: allPlayers.length,
-                              itemBuilder: (context, index) => ListTile(
-                                    selected: allPlayers[index].id == player.id,
-                                    title: Text(allPlayers[index].name),
-                                    trailing: Text(
-                                        allPlayers[index].score.toString()),
-                                  )))
+                        itemCount: allPlayers.length,
+                        itemBuilder: (context, index) => ListTile(
+                          selected: allPlayers[index].id == player.id,
+                          title: Text(allPlayers[index].name),
+                          trailing: Text(
+                            allPlayers[index].score.toString(),
+                          ),
+                        ),
+                      ))
                     ],
                   );
                 }),
@@ -113,32 +123,44 @@ class TurnCalculatorView extends StatelessWidget {
           icon: const Icon(Icons.logout_rounded),
           tooltip: 'End game',
           onPressed: () => showDialog(
-              context: context,
-              builder: (_) => DestructiveDialog(
-                  destroyButtonText: l10n.endGameConfirmButton,
-                  onConfirm: () {
-                    Navigator.of(context).pop();
-                    context.read<GameCubit>().endGame();
-                  },
-                  title: l10n.endGameDialogTitle,
-                  content: l10n.endGameDialogContent,
-                  onCancel: () => Navigator.of(context).pop())),
+            context: context,
+            builder: (_) => DestructiveDialog(
+              destroyButtonText: l10n.endGameConfirmButton,
+              onConfirm: () {
+                Navigator.of(context).pop();
+                context.read<GameCubit>().endGame();
+              },
+              title: l10n.endGameDialogTitle,
+              content: l10n.endGameDialogContent,
+              onCancel: () => Navigator.of(context).pop(),
+            ),
+          ),
         ),
         centerTitle: true,
         title: Text(player.name),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(10),
-          child: Text('Current score: ${player.score}'),
+          child: Text(
+            'Current score: ${player.score}',
+          ),
         ),
       ),
-      body: Center(child: TurnCalculatorViewBody(onMakingBacon)),
+      body: SingleChildScrollView(
+        child: Center(
+          child: TurnCalculatorViewBody(() {
+            final state = context.read<TurnCalculatorCubit>();
+            state.resetCurrentThrow();
+            onOffTheTable();
+          }),
+        ),
+      ),
     );
   }
 }
 
 class TurnCalculatorViewBody extends StatelessWidget {
-  const TurnCalculatorViewBody(this.onMakingBacon, {super.key});
-  final VoidCallback onMakingBacon;
+  const TurnCalculatorViewBody(this.onOffTheTable, {super.key});
+  final VoidCallback onOffTheTable;
   Row _buildRow(Position position) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -159,13 +181,16 @@ class TurnCalculatorViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final turn = context.select((TurnCalculatorCubit cubit) => cubit.state);
+    final turnScore =
+        context.select((TurnCalculatorCubit cubit) => cubit.getTurnScore());
+    final currentThrow =
+        context.select((TurnCalculatorCubit cubit) => cubit.currentThrow);
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
         children: [
-          TurnScoreCard(turn),
+          TurnScoreCard(currentThrow, turnScore),
           const SizedBox(height: 16),
           Column(
             children: [
@@ -180,25 +205,89 @@ class TurnCalculatorViewBody extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          side: BorderSide(
-                            color: Theme.of(context).colorScheme.error,
-                            width: 1,
-                          ),
-                          foregroundColor: Theme.of(context).colorScheme.error,
-                          backgroundColor:
-                              Theme.of(context).colorScheme.surface,
-                          surfaceTintColor:
-                              Theme.of(context).colorScheme.surfaceTint,
+                      style: OutlinedButton.styleFrom(
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onSurface,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        onPressed: () => showDialog(
-                            context: context,
-                            builder: (_) => MakingBaconDialog(
-                                onMakingBacon: onMakingBacon)),
-                        icon: Image.asset('assets/images/icons/oinker.gif'),
-                        label: Text(l10n.makingBacon)),
+                      ),
+                      onPressed: () {
+                        context.read<TurnCalculatorCubit>().resetTurn();
+                        context.read<GameCubit>().nextPlayer();
+                      },
+                      icon: Image.asset('assets/images/icons/oinker.gif'),
+                      label: Text(l10n.makingBacon),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(8),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: FilledButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                      ),
+                      onPressed: () {
+                        if (currentThrow.isThrowComplete) {
+                          context
+                              .read<TurnCalculatorCubit>()
+                              .saveThrowToTurnAndResetThrow();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              behavior: SnackBarBehavior.fixed,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.errorContainer,
+                              content: Text(
+                                l10n.turnNotComplete,
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .colorScheme
+                                      .onErrorContainer,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                      },
+                      label: const Text('Save and roll again'),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox.fromSize(
+                size: const Size.fromHeight(8),
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        side: BorderSide(
+                          color: Theme.of(context).colorScheme.error,
+                          width: 1,
+                        ),
+                        foregroundColor: Theme.of(context).colorScheme.onError,
+                        backgroundColor: Theme.of(context).colorScheme.error,
+                        surfaceTintColor:
+                            Theme.of(context).colorScheme.surfaceTint,
+                      ),
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (_) =>
+                            OffTheTableDialog(onOffTheTable: onOffTheTable),
+                      ),
+                      // icon: Image.asset('assets/images/icons/oinker.gif'),
+                      label: Text(l10n.offTheTable),
+                    ),
                   ),
                 ],
               ),
