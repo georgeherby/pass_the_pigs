@@ -141,7 +141,11 @@ class TurnCalculatorView extends StatelessWidget {
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(10),
           child: Text(
-            'Current score: ${player.score}',
+            'Total score: ${player.score}',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
+              fontSize: 16,
+            ),
           ),
         ),
       ),
@@ -149,7 +153,7 @@ class TurnCalculatorView extends StatelessWidget {
         child: Center(
           child: TurnCalculatorViewBody(() {
             final state = context.read<TurnCalculatorCubit>();
-            state.resetCurrentThrow();
+            state.resetTurn();
             onOffTheTable();
           }),
         ),

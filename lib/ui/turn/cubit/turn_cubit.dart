@@ -54,6 +54,9 @@ class TurnCalculatorCubit extends Cubit<List<Throw>> {
   }
 
   int getTurnScore() {
-    return state.fold(0, (total, throwItem) => total + throwItem.getScore());
+    return state.fold(
+      0,
+      (total, throwItem) => total + (throwItem.getScore() ?? 0),
+    );
   }
 }

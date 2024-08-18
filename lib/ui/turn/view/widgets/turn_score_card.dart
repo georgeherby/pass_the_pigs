@@ -19,7 +19,6 @@ class TurnScoreCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Text('Score'),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -27,28 +26,17 @@ class TurnScoreCard extends StatelessWidget {
                   children: [
                     Text(
                       l10n.turnScoreLabel,
-                      style: Theme.of(context).textTheme.headlineSmall,
+                      style: Theme.of(context).textTheme.titleSmall,
                     ),
                     Text(
                       '$turnScore',
-                      style: Theme.of(context).textTheme.headlineLarge,
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      l10n.rollScoreLabel,
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    Text(
-                      '${currentThrow.getScore()}',
-                      style: Theme.of(context).textTheme.headlineLarge,
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ],
                 ),
               ],
             ),
+            const Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -65,6 +53,18 @@ class TurnScoreCard extends StatelessWidget {
                     ),
                     Text(l10n.pigOneLabel,
                         style: Theme.of(context).textTheme.titleMedium),
+                  ],
+                ),
+                Column(
+                  children: [
+                    // Text(
+                    //   l10n.rollScoreLabel,
+                    //   style: Theme.of(context).textTheme.titleSmall,
+                    // ),
+                    Text(
+                      '${currentThrow.getScore() ?? ''}',
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
                   ],
                 ),
                 Column(

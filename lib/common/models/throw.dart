@@ -34,9 +34,9 @@ class Throw extends Equatable {
     }
   }
 
-  int getScore() {
+  int? getScore() {
     if (pigOne == null && pigTwo == null) {
-      return 0;
+      return null;
     }
     if (pigOne == pigTwo) {
       switch (pigOne!) {

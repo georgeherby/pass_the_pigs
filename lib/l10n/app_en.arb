@@ -24,29 +24,29 @@
     "@turnScoreLabel": {
         "description": "Text shown in the Label for Turn Score"
     },
-    "endTurnButtonLabel": "Save & End Turn",
+    "endTurnButtonLabel": "Save and end turn",
     "@endTurnButtonLabel": {
         "description": "End turn button label"
     },
-    "nextPlayerFab": "Save & End Turn",
+    "nextPlayerFab": "Save and end turn",
     "@nextPlayerFab": {
         "description": "FAB label for next player"
     },
-    "makingBacon": "Making Bacon (score 0 and end turn)",
+    "makingBacon": "Making bacon (score 0 and end turn)",
     "@makingBacon": {
-        "description": "Text shown when throw is Making Bacon"
+        "description": "Text shown when throw is Making bacon"
     },
     "makingBaconDialogBody": "This will reset your game score to 0 and end your turn.",
     "@makingBaconDialogBody": {
-        "description": "Body of Making Bacon dialog"
+        "description": "Body of Making bacon dialog"
     },
-    "offTheTable": "Off the Table (reset score)",
+    "offTheTable": "Off the table (reset total score)",
     "@offTheTable": {
-        "description": "Text shown when throw is Off the Table"
+        "description": "Text shown when throw is Off the table"
     },
     "offTheTableDialogBody": "This will reset your game score to 0.",
     "@offTheTableDialogBody": {
-        "description": "Body of Off the Table dialog"
+        "description": "Body of Off the table dialog"
     },
     "cancel": "Cancel",
     "@cancel": {

@@ -20,7 +20,7 @@ class Player extends Equatable {
   }
 
   int get score =>
-      throws.fold(0, (acc, throwItem) => acc + throwItem.getScore());
+      throws.fold(0, (acc, throwItem) => acc + (throwItem.getScore() ?? 0));
 
   bool get isWinner => score > 100;
 
