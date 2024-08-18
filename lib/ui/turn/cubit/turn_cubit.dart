@@ -23,14 +23,7 @@ class TurnCalculatorCubit extends Cubit<List<Throw>> {
   }
 
   void removePig(Pig pig) {
-    switch (pig) {
-      case Pig.one:
-        _currentThrow = _currentThrow.copyWith(pigOne: null);
-        break;
-      case Pig.two:
-        _currentThrow = _currentThrow.copyWith(pigTwo: null);
-        break;
-    }
+    _currentThrow = _currentThrow.removePig(pig);
     emit(List.from(state));
   }
 

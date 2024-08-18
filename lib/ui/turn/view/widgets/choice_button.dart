@@ -4,7 +4,7 @@ import 'package:pass_the_pigs/ui/turn/cubit/turn_cubit.dart';
 import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
 import 'package:pass_the_pigs/ui/turn/enums/position.dart';
 
-class ChoiceButton extends StatefulWidget {
+class ChoiceButton extends StatelessWidget {
   const ChoiceButton({
     super.key,
     required this.valueOfButton,
@@ -15,29 +15,20 @@ class ChoiceButton extends StatefulWidget {
   final Pig pig;
 
   @override
-  State<ChoiceButton> createState() => _ChoiceButtonState();
-}
-
-class _ChoiceButtonState extends State<ChoiceButton> {
-  @override
   Widget build(BuildContext context) {
-    var isSelected =
-        context.read<TurnCalculatorCubit>().currentThrow.getPigPosition(widget.pig) ==
-            widget.valueOfButton;
+    final isSelected =
+        context.watch<TurnCalculatorCubit>().currentThrow.getPigPosition(pig) ==
+            valueOfButton;
 
     return FilterChip(
       showCheckmark: false,
       selected: isSelected,
-      onSelected: (state) {
-        isSelected = state;
-        if (isSelected) {
-          context
-              .read<TurnCalculatorCubit>()
-              .addPig(widget.pig, widget.valueOfButton);
+      onSelected: (selected) {
+        if (selected) {
+          context.read<TurnCalculatorCubit>().addPig(pig, valueOfButton);
         } else {
-          context.read<TurnCalculatorCubit>().removePig(widget.pig);
+          context.read<TurnCalculatorCubit>().removePig(pig);
         }
-        setState(() {});
       },
       label: SizedBox(
         width: MediaQuery.of(context).size.width * 0.3,
@@ -45,7 +36,7 @@ class _ChoiceButtonState extends State<ChoiceButton> {
           child: Column(
             children: [
               Text(
-                widget.valueOfButton.displayText,
+                valueOfButton.displayText,
                 style: TextStyle(
                     color: isSelected
                         ? Theme.of(context).colorScheme.onSecondaryContainer
