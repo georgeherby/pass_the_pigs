@@ -22,6 +22,9 @@ jobs:
           channel: stable
           cache: true
 
+      - name: 🏗️ Install dependencies
+        run: flutter pub get
+
       - name: ✨ Check Formatting
         run: flutter format --set-exit-if-changed lib test
 

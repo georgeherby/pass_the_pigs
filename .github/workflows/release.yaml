@@ -27,13 +27,16 @@ jobs:
           channel: stable
           cache: true
 
+      - name: 🏗️ Install dependencies
+        run: flutter pub get
+        
       - name: Create JKS file
         uses: timheuer/base64-to-file@v1.2
         with:
           fileName: "key.jks"
           fileDir: "./android/"
           encodedString: ${{ secrets.KEY_JKS }}
-          
+
       - name: ✨ Check Formatting
         run: dart format --set-exit-if-changed lib test
 
