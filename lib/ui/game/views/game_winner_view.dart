@@ -1,11 +1,16 @@
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pass_the_pigs/l10n/l10n.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
 
 class GameWinnerView extends StatefulWidget {
-  const GameWinnerView(
-      {super.key, required this.winnerName, required this.score});
+  const GameWinnerView({
+    super.key,
+    required this.winnerName,
+    required this.score,
+  });
+
   final String winnerName;
   final int score;
 
@@ -14,7 +19,7 @@ class GameWinnerView extends StatefulWidget {
 }
 
 class _GameWinnerViewState extends State<GameWinnerView> {
-  late ConfettiController _controllerCenter;
+  late final ConfettiController _controllerCenter;
 
   @override
   void initState() {
@@ -32,46 +37,82 @@ class _GameWinnerViewState extends State<GameWinnerView> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final textTheme = Theme.of(context).textTheme;
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            icon: const Icon(Icons.logout_rounded),
-            tooltip: 'End game',
-            onPressed: () => context.read<GameCubit>().endGame()),
         centerTitle: true,
-        title: const Text('Game over'),
+        title: Text(l10n.gameOverTitle),
+        automaticallyImplyLeading: false,
       ),
-      body: SafeArea(
-        child: Stack(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.center,
-              child: ConfettiWidget(
-                confettiController: _controllerCenter,
-                blastDirectionality: BlastDirectionality
-                    .explosive, // don't specify a direction, blast randomly
-                shouldLoop:
-                    true, // start again as soon as the animation is finished
-                colors: [
-                  Theme.of(context).colorScheme.primary,
-                  Theme.of(context).colorScheme.secondary,
-                  Theme.of(context).colorScheme.tertiary,
+      body: Column(
+        children: [
+          Expanded(
+            child: SafeArea(
+              bottom: false,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: ConfettiWidget(
+                      confettiController: _controllerCenter,
+                      blastDirectionality: BlastDirectionality.explosive,
+                      shouldLoop: true,
+                      colors: [
+                        colorScheme.primary,
+                        colorScheme.secondary,
+                        colorScheme.tertiary,
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            l10n.winnerMessage(widget.winnerName),
+                            textAlign: TextAlign.center,
+                            style: textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '${widget.score}',
+                            style: textTheme.displayLarge,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-            Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(widget.score.toString(),
-                        style: Theme.of(context).textTheme.displayLarge),
-                    Text('${widget.winnerName} wins!',
-                        style: Theme.of(context).textTheme.displaySmall),
-                  ],
-                )),
-          ],
-        ),
+          ),
+          Material(
+            color: colorScheme.surface,
+            elevation: 0,
+            shadowColor: Colors.transparent,
+            surfaceTintColor: Colors.transparent,
+            child: SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: FilledButton.icon(
+                    onPressed: () => context.read<GameCubit>().endGame(),
+                    icon: const Icon(Icons.replay_rounded),
+                    label: Text(l10n.playAgainButton),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

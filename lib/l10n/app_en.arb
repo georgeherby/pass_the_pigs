@@ -1,12 +1,8 @@
 {
     "@@locale": "en",
-    "appBarTitle": "Pass The Pigs",
+    "appBarTitle": "Pass the Pigs",
     "@appBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
-    },
-    "resetButton": "Reset",
-    "@resetButton": {
-        "description": "Text shown in the Reset Button"
+        "description": "App title shown on the setup screen"
     },
     "pigOneLabel": "Pig One",
     "@pigOneLabel": {
@@ -24,23 +20,23 @@
     "@turnScoreLabel": {
         "description": "Text shown in the Label for Turn Score"
     },
-    "endTurnButtonLabel": "Save and end turn",
-    "@endTurnButtonLabel": {
-        "description": "End turn button label"
-    },
     "nextPlayerFab": "Save and end turn",
     "@nextPlayerFab": {
-        "description": "FAB label for next player"
+        "description": "Button to bank turn score and end turn"
     },
     "saveAndRollAgain": "Save and roll again",
     "@saveAndRollAgain": {
-        "description": "Button to commit roll and continue the turn"
+        "description": "Primary button to commit roll and continue the turn"
     },
-    "makinBacon": "Makin' Bacon (reset total score)",
+    "makinBacon": "Makin' Bacon",
     "@makinBacon": {
-        "description": "Button label when pigs are touching"
+        "description": "Short title for Makin' Bacon dialog and button"
     },
-    "makinBaconDialogBody": "Both pigs are touching. This will reset your game score to 0 and end your turn.",
+    "makinBaconButton": "Makin' Bacon — reset total score",
+    "@makinBaconButton": {
+        "description": "Full button label when pigs are touching"
+    },
+    "makinBaconDialogBody": "Both pigs are touching. This resets your game score to 0 and ends your turn.",
     "@makinBaconDialogBody": {
         "description": "Body of Makin' Bacon confirmation dialog"
     },
@@ -64,11 +60,11 @@
     "@pigOutMessage": {
         "description": "Message when opposite sides are rolled"
     },
-    "endGameDialogTitle": "Are you sure?",
+    "endGameDialogTitle": "End this game?",
     "@endGameDialogTitle": {
         "description": "Title for end game dialog"
     },
-    "endGameDialogContent": "This will result in the termination of the game and the loss of your existing scorecard.",
+    "endGameDialogContent": "Scores will be cleared. Player names will be kept for the next game.",
     "@endGameDialogContent": {
         "description": "Content for end game dialog"
     },
@@ -76,7 +72,15 @@
     "@enterPlayerName": {
         "description": "Enter player name input label"
     },
-    "minimumOfTwoPlayers": "A minimum of two players are needed to start a game.",
+    "playerNameRequired": "Please enter a player name",
+    "@playerNameRequired": {
+        "description": "Validation error when player name is empty"
+    },
+    "addPlayerButton": "Add player",
+    "@addPlayerButton": {
+        "description": "Button to add a player on the setup screen"
+    },
+    "minimumOfTwoPlayers": "Add at least two players to start a game.",
     "@minimumOfTwoPlayers": {
         "description": "Error when starting the game with less than 2 players"
     },
@@ -87,5 +91,47 @@
     "endGameConfirmButton": "End game",
     "@endGameConfirmButton": {
         "description": "End game confirm button label"
+    },
+    "endGameTooltip": "End game",
+    "@endGameTooltip": {
+        "description": "Tooltip for ending the game"
+    },
+    "totalScoreLabel": "Total score: {score}",
+    "@totalScoreLabel": {
+        "description": "Player total score under the turn AppBar",
+        "placeholders": {
+            "score": {
+                "type": "int"
+            }
+        }
+    },
+    "scoreboardTitle": "Scoreboard",
+    "@scoreboardTitle": {
+        "description": "Title for the scoreboard bottom sheet"
+    },
+    "scoreboardTooltip": "Open scoreboard",
+    "@scoreboardTooltip": {
+        "description": "Tooltip for opening the scoreboard"
+    },
+    "gameOverTitle": "Game over",
+    "@gameOverTitle": {
+        "description": "Title on the winner screen"
+    },
+    "winnerMessage": "{name} wins!",
+    "@winnerMessage": {
+        "description": "Winner celebration message",
+        "placeholders": {
+            "name": {
+                "type": "String"
+            }
+        }
+    },
+    "playAgainButton": "Play again",
+    "@playAgainButton": {
+        "description": "Button on winner screen to return to setup"
+    },
+    "removePlayerTooltip": "Remove player",
+    "@removePlayerTooltip": {
+        "description": "Tooltip for removing a player from the setup list"
     }
 }

@@ -20,15 +20,12 @@ class GamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.surface,
-      body: BlocProvider(
-        create: (_) => GameCubit(
-          storage: gameStorage,
-          initialGame: initialGame,
-        ),
-        child: const GameView(),
+    return BlocProvider(
+      create: (_) => GameCubit(
+        storage: gameStorage,
+        initialGame: initialGame,
       ),
+      child: const GameView(),
     );
   }
 }
@@ -59,10 +56,7 @@ class GameView extends StatelessWidget {
             },
           );
         } else if (state.isGameActive && state.hasWinner) {
-          final player = context
-              .read<GameCubit>()
-              .state
-              .players[context.read<GameCubit>().state.currentPlayer];
+          final player = state.players[state.currentPlayer];
           return GameWinnerView(score: player.score, winnerName: player.name);
         } else {
           return const GameInactiveView();

@@ -9,10 +9,7 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
-  String get appBarTitle => 'Pass The Pigs';
-
-  @override
-  String get resetButton => 'Reset';
+  String get appBarTitle => 'Pass the Pigs';
 
   @override
   String get pigOneLabel => 'Pig One';
@@ -27,20 +24,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get turnScoreLabel => 'Turn';
 
   @override
-  String get endTurnButtonLabel => 'Save and end turn';
-
-  @override
   String get nextPlayerFab => 'Save and end turn';
 
   @override
   String get saveAndRollAgain => 'Save and roll again';
 
   @override
-  String get makinBacon => 'Makin\' Bacon (reset total score)';
+  String get makinBacon => 'Makin\' Bacon';
+
+  @override
+  String get makinBaconButton => 'Makin\' Bacon — reset total score';
 
   @override
   String get makinBaconDialogBody =>
-      'Both pigs are touching. This will reset your game score to 0 and end your turn.';
+      'Both pigs are touching. This resets your game score to 0 and ends your turn.';
 
   @override
   String get cancel => 'Cancel';
@@ -59,22 +56,55 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pigOutMessage => 'Pig Out — turn score lost';
 
   @override
-  String get endGameDialogTitle => 'Are you sure?';
+  String get endGameDialogTitle => 'End this game?';
 
   @override
   String get endGameDialogContent =>
-      'This will result in the termination of the game and the loss of your existing scorecard.';
+      'Scores will be cleared. Player names will be kept for the next game.';
 
   @override
   String get enterPlayerName => 'Enter player name';
 
   @override
-  String get minimumOfTwoPlayers =>
-      'A minimum of two players are needed to start a game.';
+  String get playerNameRequired => 'Please enter a player name';
+
+  @override
+  String get addPlayerButton => 'Add player';
+
+  @override
+  String get minimumOfTwoPlayers => 'Add at least two players to start a game.';
 
   @override
   String get startGameButton => 'Start game';
 
   @override
   String get endGameConfirmButton => 'End game';
+
+  @override
+  String get endGameTooltip => 'End game';
+
+  @override
+  String totalScoreLabel(int score) {
+    return 'Total score: $score';
+  }
+
+  @override
+  String get scoreboardTitle => 'Scoreboard';
+
+  @override
+  String get scoreboardTooltip => 'Open scoreboard';
+
+  @override
+  String get gameOverTitle => 'Game over';
+
+  @override
+  String winnerMessage(String name) {
+    return '$name wins!';
+  }
+
+  @override
+  String get playAgainButton => 'Play again';
+
+  @override
+  String get removePlayerTooltip => 'Remove player';
 }

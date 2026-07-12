@@ -94,17 +94,11 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// Text shown in the AppBar of the Counter Page
+  /// App title shown on the setup screen
   ///
   /// In en, this message translates to:
-  /// **'Pass The Pigs'**
+  /// **'Pass the Pigs'**
   String get appBarTitle;
-
-  /// Text shown in the Reset Button
-  ///
-  /// In en, this message translates to:
-  /// **'Reset'**
-  String get resetButton;
 
   /// Text shown in the Label for Pig One
   ///
@@ -130,34 +124,34 @@ abstract class AppLocalizations {
   /// **'Turn'**
   String get turnScoreLabel;
 
-  /// End turn button label
-  ///
-  /// In en, this message translates to:
-  /// **'Save and end turn'**
-  String get endTurnButtonLabel;
-
-  /// FAB label for next player
+  /// Button to bank turn score and end turn
   ///
   /// In en, this message translates to:
   /// **'Save and end turn'**
   String get nextPlayerFab;
 
-  /// Button to commit roll and continue the turn
+  /// Primary button to commit roll and continue the turn
   ///
   /// In en, this message translates to:
   /// **'Save and roll again'**
   String get saveAndRollAgain;
 
-  /// Button label when pigs are touching
+  /// Short title for Makin' Bacon dialog and button
   ///
   /// In en, this message translates to:
-  /// **'Makin\' Bacon (reset total score)'**
+  /// **'Makin\' Bacon'**
   String get makinBacon;
+
+  /// Full button label when pigs are touching
+  ///
+  /// In en, this message translates to:
+  /// **'Makin\' Bacon — reset total score'**
+  String get makinBaconButton;
 
   /// Body of Makin' Bacon confirmation dialog
   ///
   /// In en, this message translates to:
-  /// **'Both pigs are touching. This will reset your game score to 0 and end your turn.'**
+  /// **'Both pigs are touching. This resets your game score to 0 and ends your turn.'**
   String get makinBaconDialogBody;
 
   /// Used anywhere that cancel is needed
@@ -193,13 +187,13 @@ abstract class AppLocalizations {
   /// Title for end game dialog
   ///
   /// In en, this message translates to:
-  /// **'Are you sure?'**
+  /// **'End this game?'**
   String get endGameDialogTitle;
 
   /// Content for end game dialog
   ///
   /// In en, this message translates to:
-  /// **'This will result in the termination of the game and the loss of your existing scorecard.'**
+  /// **'Scores will be cleared. Player names will be kept for the next game.'**
   String get endGameDialogContent;
 
   /// Enter player name input label
@@ -208,10 +202,22 @@ abstract class AppLocalizations {
   /// **'Enter player name'**
   String get enterPlayerName;
 
+  /// Validation error when player name is empty
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a player name'**
+  String get playerNameRequired;
+
+  /// Button to add a player on the setup screen
+  ///
+  /// In en, this message translates to:
+  /// **'Add player'**
+  String get addPlayerButton;
+
   /// Error when starting the game with less than 2 players
   ///
   /// In en, this message translates to:
-  /// **'A minimum of two players are needed to start a game.'**
+  /// **'Add at least two players to start a game.'**
   String get minimumOfTwoPlayers;
 
   /// Start game button label
@@ -225,6 +231,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'End game'**
   String get endGameConfirmButton;
+
+  /// Tooltip for ending the game
+  ///
+  /// In en, this message translates to:
+  /// **'End game'**
+  String get endGameTooltip;
+
+  /// Player total score under the turn AppBar
+  ///
+  /// In en, this message translates to:
+  /// **'Total score: {score}'**
+  String totalScoreLabel(int score);
+
+  /// Title for the scoreboard bottom sheet
+  ///
+  /// In en, this message translates to:
+  /// **'Scoreboard'**
+  String get scoreboardTitle;
+
+  /// Tooltip for opening the scoreboard
+  ///
+  /// In en, this message translates to:
+  /// **'Open scoreboard'**
+  String get scoreboardTooltip;
+
+  /// Title on the winner screen
+  ///
+  /// In en, this message translates to:
+  /// **'Game over'**
+  String get gameOverTitle;
+
+  /// Winner celebration message
+  ///
+  /// In en, this message translates to:
+  /// **'{name} wins!'**
+  String winnerMessage(String name);
+
+  /// Button on winner screen to return to setup
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get playAgainButton;
+
+  /// Tooltip for removing a player from the setup list
+  ///
+  /// In en, this message translates to:
+  /// **'Remove player'**
+  String get removePlayerTooltip;
 }
 
 class _AppLocalizationsDelegate

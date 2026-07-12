@@ -1,5 +1,15 @@
 import 'package:flutter/material.dart';
 
+/// Shared corner radius for chips, buttons, and cards.
+const appRadius = 12.0;
+
+RoundedRectangleBorder appShape({BorderSide side = BorderSide.none}) {
+  return RoundedRectangleBorder(
+    borderRadius: BorderRadius.circular(appRadius),
+    side: side,
+  );
+}
+
 const lightColorScheme = ColorScheme(
   brightness: Brightness.light,
   primary: Color(0xFF006C46),
@@ -18,11 +28,17 @@ const lightColorScheme = ColorScheme(
   errorContainer: Color(0xFFFFDAD6),
   onError: Color(0xFFFFFFFF),
   onErrorContainer: Color(0xFF410002),
-  surface: Color(0xFFFBFDF8),
+  // Soft green page — avoid stark white “islands”.
+  surface: Color(0xFFEEF3EE),
   onSurface: Color(0xFF191C1A),
-  surfaceContainerHighest: Color(0xFFDCE5DC),
+  surfaceContainerLowest: Color(0xFFE6EDE6),
+  surfaceContainerLow: Color(0xFFEEF3EE),
+  surfaceContainer: Color(0xFFE0E9E0),
+  surfaceContainerHigh: Color(0xFFD5E0D5),
+  surfaceContainerHighest: Color(0xFFC9D6C9),
   onSurfaceVariant: Color(0xFF404943),
   outline: Color(0xFF707972),
+  outlineVariant: Color(0xFFA8B5A9),
   onInverseSurface: Color(0xFFEFF1ED),
   inverseSurface: Color(0xFF2E312E),
   inversePrimary: Color(0xFF73DAA4),
@@ -48,11 +64,16 @@ const darkColorScheme = ColorScheme(
   errorContainer: Color(0xFF93000A),
   onError: Color(0xFF690005),
   onErrorContainer: Color(0xFFFFDAD6),
-  surface: Color(0xFF191C1A),
+  surface: Color(0xFF1A1F1B),
   onSurface: Color(0xFFE1E3DF),
-  surfaceContainerHighest: Color(0xFF404943),
+  surfaceContainerLowest: Color(0xFF151914),
+  surfaceContainerLow: Color(0xFF1A1F1B),
+  surfaceContainer: Color(0xFF222722),
+  surfaceContainerHigh: Color(0xFF2C322C),
+  surfaceContainerHighest: Color(0xFF373D37),
   onSurfaceVariant: Color(0xFFC0C9C1),
   outline: Color(0xFF8A938B),
+  outlineVariant: Color(0xFF404943),
   onInverseSurface: Color(0xFF191C1A),
   inverseSurface: Color(0xFFE1E3DF),
   inversePrimary: Color(0xFF006C46),

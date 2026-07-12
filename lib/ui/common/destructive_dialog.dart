@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 
 class DestructiveDialog extends StatelessWidget {
-  const DestructiveDialog(
-      {super.key,
-      required this.onConfirm,
-      required this.destroyButtonText,
-      required this.onCancel,
-      required this.title,
-      required this.content});
+  const DestructiveDialog({
+    super.key,
+    required this.onConfirm,
+    required this.destroyButtonText,
+    required this.onCancel,
+    required this.title,
+    required this.content,
+  });
+
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
   final String title;
@@ -18,6 +20,7 @@ class DestructiveDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return AlertDialog(
       title: Text(title),
@@ -25,13 +28,16 @@ class DestructiveDialog extends StatelessWidget {
       actions: <Widget>[
         TextButton(
           onPressed: onCancel,
-          child: Text(l10n.cancel,
-              style: TextStyle(color: Theme.of(context).colorScheme.onSurface)),
+          child: Text(l10n.cancel),
         ),
-        TextButton(
-            onPressed: onConfirm,
-            child: Text(destroyButtonText,
-                style: TextStyle(color: Theme.of(context).colorScheme.error))),
+        FilledButton(
+          style: FilledButton.styleFrom(
+            backgroundColor: colorScheme.error,
+            foregroundColor: colorScheme.onError,
+          ),
+          onPressed: onConfirm,
+          child: Text(destroyButtonText),
+        ),
       ],
     );
   }
