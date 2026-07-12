@@ -10,6 +10,15 @@ class Throw extends Equatable {
 
   bool get isThrowComplete => pigOne != null && pigTwo != null;
 
+  bool get isEmpty => pigOne == null && pigTwo == null;
+
+  /// Pig Out: pigs land on opposite sides (dot vs no-dot).
+  bool get isPigOut {
+    if (!isThrowComplete) return false;
+    return (pigOne == Position.sideNoSpot && pigTwo == Position.sideSpot) ||
+        (pigOne == Position.sideSpot && pigTwo == Position.sideNoSpot);
+  }
+
   Throw removePig(Pig pig) {
     switch (pig) {
       case Pig.one:
@@ -35,8 +44,11 @@ class Throw extends Equatable {
   }
 
   int? getScore() {
-    if (pigOne == null && pigTwo == null) {
+    if (!isThrowComplete) {
       return null;
+    }
+    if (isPigOut) {
+      return 0;
     }
     if (pigOne == pigTwo) {
       switch (pigOne!) {
@@ -51,19 +63,9 @@ class Throw extends Equatable {
         case Position.sideSpot:
           return 1;
       }
-    } else {
-      if (pigOne == Position.sideNoSpot && pigTwo == Position.sideSpot) {
-        return 0;
-      }
-      var score = 0;
-      if (pigOne != null) {
-        score += _getValueForPosition(pigOne!);
-      }
-      if (pigTwo != null) {
-        score += _getValueForPosition(pigTwo!);
-      }
-      return score;
     }
+
+    return _getValueForPosition(pigOne!) + _getValueForPosition(pigTwo!);
   }
 
   Throw copyWith({

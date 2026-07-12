@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:pass_the_pigs/ui/game/game.dart';
+import 'package:pass_the_pigs/l10n/app_localizations.dart';
 import 'package:pass_the_pigs/theme/color_schemes.g.dart';
+import 'package:pass_the_pigs/ui/game/game.dart';
 
 class App extends StatelessWidget {
   const App({super.key});

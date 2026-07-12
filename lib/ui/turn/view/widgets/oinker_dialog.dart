@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 import 'package:pass_the_pigs/ui/common/destructive_dialog.dart';
 
-class OffTheTableDialog extends StatelessWidget {
-  const OffTheTableDialog({super.key, required this.onOffTheTable});
-  final VoidCallback onOffTheTable;
+class OinkerDialog extends StatelessWidget {
+  const OinkerDialog({super.key, required this.onOinker});
+  final VoidCallback onOinker;
 
   @override
   Widget build(BuildContext context) {
@@ -12,13 +12,13 @@ class OffTheTableDialog extends StatelessWidget {
 
     return DestructiveDialog(
       destroyButtonText: l10n.resetScore,
-      title: l10n.offTheTable,
-      content: l10n.offTheTableDialogBody,
+      title: l10n.oinker,
+      content: l10n.oinkerDialogBody,
       onCancel: () {
         Navigator.of(context).pop();
       },
       onConfirm: () {
-        onOffTheTable();
+        onOinker();
         Navigator.of(context).pop();
       },
     );

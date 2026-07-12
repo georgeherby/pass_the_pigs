@@ -32,21 +32,17 @@
     "@nextPlayerFab": {
         "description": "FAB label for next player"
     },
-    "makingBacon": "Making bacon (score 0 and end turn)",
-    "@makingBacon": {
-        "description": "Text shown when throw is Making bacon"
+    "saveAndRollAgain": "Save and roll again",
+    "@saveAndRollAgain": {
+        "description": "Button to commit roll and continue the turn"
     },
-    "makingBaconDialogBody": "This will reset your game score to 0 and end your turn.",
-    "@makingBaconDialogBody": {
-        "description": "Body of Making bacon dialog"
+    "oinker": "Oinker (reset total score)",
+    "@oinker": {
+        "description": "Button label when pigs are touching"
     },
-    "offTheTable": "Off the table (reset total score)",
-    "@offTheTable": {
-        "description": "Text shown when throw is Off the table"
-    },
-    "offTheTableDialogBody": "This will reset your game score to 0.",
-    "@offTheTableDialogBody": {
-        "description": "Body of Off the table dialog"
+    "oinkerDialogBody": "Both pigs are touching. This will reset your game score to 0 and end your turn.",
+    "@oinkerDialogBody": {
+        "description": "Body of Oinker confirmation dialog"
     },
     "cancel": "Cancel",
     "@cancel": {
@@ -56,9 +52,17 @@
     "@resetScore": {
         "description": "Used anywhere that reset score is needed"
     },
-    "turnNotComplete": "Turn is not complete",
+    "turnNotComplete": "Select a position for both pigs",
     "@turnNotComplete": {
-        "description": "Error when turn is not complete"
+        "description": "Error when current roll is incomplete"
+    },
+    "nothingToBank": "Nothing to bank — roll first or finish the current roll",
+    "@nothingToBank": {
+        "description": "Error when ending turn with no points to bank"
+    },
+    "pigOutMessage": "Pig Out — turn score lost",
+    "@pigOutMessage": {
+        "description": "Message when opposite sides are rolled"
     },
     "endGameDialogTitle": "Are you sure?",
     "@endGameDialogTitle": {
@@ -84,5 +88,4 @@
     "@endGameConfirmButton": {
         "description": "End game confirm button label"
     }
-
 }

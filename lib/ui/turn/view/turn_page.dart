@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pass_the_pigs/common/common.dart';
 import 'package:pass_the_pigs/l10n/l10n.dart';
 import 'package:pass_the_pigs/ui/common/destructive_dialog.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
@@ -7,28 +8,35 @@ import 'package:pass_the_pigs/ui/game/models/player.dart';
 import 'package:pass_the_pigs/ui/turn/cubit/turn_cubit.dart';
 import 'package:pass_the_pigs/ui/turn/enums/pig.dart';
 import 'package:pass_the_pigs/ui/turn/enums/position.dart';
-import 'package:pass_the_pigs/ui/turn/view/widgets/making_bacon_dialog.dart';
-import 'package:pass_the_pigs/ui/turn/view/widgets/turn_score_card.dart';
+import 'package:pass_the_pigs/ui/turn/models/turn_action_result.dart';
 import 'package:pass_the_pigs/ui/turn/view/widgets/choice_button.dart';
+import 'package:pass_the_pigs/ui/turn/view/widgets/oinker_dialog.dart';
+import 'package:pass_the_pigs/ui/turn/view/widgets/turn_score_card.dart';
 
 class TurnCalculatorPage extends StatelessWidget {
-  const TurnCalculatorPage(
-      {super.key,
-      required this.onOffTheTable,
-      required this.goToNextPlayer,
-      required this.player,
-      required this.allPlayers});
-  final VoidCallback onOffTheTable;
-  final Function goToNextPlayer;
+  const TurnCalculatorPage({
+    super.key,
+    required this.onOinker,
+    required this.onBankTurn,
+    required this.onPigOut,
+    required this.player,
+    required this.allPlayers,
+  });
+
+  final VoidCallback onOinker;
+  final VoidCallback onPigOut;
+  final void Function(List<Throw> throws) onBankTurn;
   final Player player;
   final List<Player> allPlayers;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => TurnCalculatorCubit(),
       child: TurnCalculatorView(
-        onOffTheTable: onOffTheTable,
-        goToNextPlayer: goToNextPlayer,
+        onOinker: onOinker,
+        onBankTurn: onBankTurn,
+        onPigOut: onPigOut,
         player: player,
         allPlayers: allPlayers,
       ),
@@ -37,16 +45,56 @@ class TurnCalculatorPage extends StatelessWidget {
 }
 
 class TurnCalculatorView extends StatelessWidget {
-  const TurnCalculatorView(
-      {super.key,
-      required this.goToNextPlayer,
-      required this.onOffTheTable,
-      required this.player,
-      required this.allPlayers});
-  final VoidCallback onOffTheTable;
-  final Function goToNextPlayer;
+  const TurnCalculatorView({
+    super.key,
+    required this.onOinker,
+    required this.onBankTurn,
+    required this.onPigOut,
+    required this.player,
+    required this.allPlayers,
+  });
+
+  final VoidCallback onOinker;
+  final VoidCallback onPigOut;
+  final void Function(List<Throw> throws) onBankTurn;
   final Player player;
   final List<Player> allPlayers;
+
+  void _showErrorSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.fixed,
+        backgroundColor: Theme.of(context).colorScheme.errorContainer,
+        content: Text(
+          message,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onErrorContainer,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _handleBankTurn(BuildContext context) {
+    final l10n = context.l10n;
+    final turnCubit = context.read<TurnCalculatorCubit>();
+    final result = turnCubit.bankTurn();
+
+    switch (result) {
+      case TurnBanked(:final throws):
+        onBankTurn(throws);
+      case TurnPigOut():
+        _showErrorSnackBar(context, l10n.pigOutMessage);
+        onPigOut();
+      case TurnIncomplete():
+        _showErrorSnackBar(context, l10n.turnNotComplete);
+      case TurnNothingToBank():
+        _showErrorSnackBar(context, l10n.nothingToBank);
+      case TurnContinue():
+      case TurnOinker():
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,53 +103,29 @@ class TurnCalculatorView extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         tooltip: 'End your turn and save current score',
         label: Text(l10n.nextPlayerFab),
-        onPressed: () {
-          final currentThrow = context.read<TurnCalculatorCubit>().currentThrow;
-
-          if (currentThrow.isThrowComplete) {
-            final turnCubit = context.read<TurnCalculatorCubit>();
-            turnCubit.saveThrowToTurnAndResetThrow();
-
-            final throwsInTurn = context.read<TurnCalculatorCubit>().state;
-            goToNextPlayer(throwsInTurn);
-            turnCubit.resetTurn();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                behavior: SnackBarBehavior.fixed,
-                backgroundColor: Theme.of(context).colorScheme.errorContainer,
-                content: Text(
-                  l10n.turnNotComplete,
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.onErrorContainer,
-                  ),
-                ),
-              ),
-            );
-          }
-        },
+        onPressed: () => _handleBankTurn(context),
       ),
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         actions: [
           IconButton(
             onPressed: () => showModalBottomSheet(
-                context: context,
-                isDismissible: true,
-                enableDrag: true,
-                builder: (context) {
-                  return Column(
-                    children: [
-                      AppBar(
-                        title: const Text('Scoreboard'),
-                        centerTitle: true,
-                        leading: IconButton(
-                          icon: const Icon(Icons.close),
-                          onPressed: () => Navigator.of(context).pop(),
-                        ),
+              context: context,
+              isDismissible: true,
+              enableDrag: true,
+              builder: (context) {
+                return Column(
+                  children: [
+                    AppBar(
+                      title: const Text('Scoreboard'),
+                      centerTitle: true,
+                      leading: IconButton(
+                        icon: const Icon(Icons.close),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                      Expanded(
-                          child: ListView.builder(
+                    ),
+                    Expanded(
+                      child: ListView.builder(
                         itemCount: allPlayers.length,
                         itemBuilder: (context, index) => ListTile(
                           selected: allPlayers[index].id == player.id,
@@ -110,10 +134,12 @@ class TurnCalculatorView extends StatelessWidget {
                             allPlayers[index].score.toString(),
                           ),
                         ),
-                      ))
-                    ],
-                  );
-                }),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
             icon: const Icon(Icons.scoreboard_outlined),
             tooltip: 'Open scoreboard',
           ),
@@ -150,11 +176,16 @@ class TurnCalculatorView extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: TurnCalculatorViewBody(() {
-            final state = context.read<TurnCalculatorCubit>();
-            state.resetTurn();
-            onOffTheTable();
-          }),
+          child: TurnCalculatorViewBody(
+            gameScore: player.score,
+            onBankTurn: onBankTurn,
+            onOinker: () {
+              context.read<TurnCalculatorCubit>().resolveOinker();
+              onOinker();
+            },
+            onPigOut: onPigOut,
+            showError: (message) => _showErrorSnackBar(context, message),
+          ),
         ),
       ),
     );
@@ -162,8 +193,21 @@ class TurnCalculatorView extends StatelessWidget {
 }
 
 class TurnCalculatorViewBody extends StatelessWidget {
-  const TurnCalculatorViewBody(this.onOffTheTable, {super.key});
-  final VoidCallback onOffTheTable;
+  const TurnCalculatorViewBody({
+    super.key,
+    required this.gameScore,
+    required this.onBankTurn,
+    required this.onOinker,
+    required this.onPigOut,
+    required this.showError,
+  });
+
+  final int gameScore;
+  final void Function(List<Throw> throws) onBankTurn;
+  final VoidCallback onOinker;
+  final VoidCallback onPigOut;
+  final void Function(String message) showError;
+
   Row _buildRow(Position position) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -181,6 +225,28 @@ class TurnCalculatorViewBody extends StatelessWidget {
     );
   }
 
+  void _handleCommitRoll(BuildContext context) {
+    final l10n = context.l10n;
+    final result = context
+        .read<TurnCalculatorCubit>()
+        .commitRoll(gameScore: gameScore);
+
+    switch (result) {
+      case TurnContinue():
+        break;
+      case TurnBanked(:final throws):
+        onBankTurn(throws);
+      case TurnPigOut():
+        showError(l10n.pigOutMessage);
+        onPigOut();
+      case TurnIncomplete():
+        showError(l10n.turnNotComplete);
+      case TurnNothingToBank():
+      case TurnOinker():
+        break;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -190,7 +256,7 @@ class TurnCalculatorViewBody extends StatelessWidget {
         context.select((TurnCalculatorCubit cubit) => cubit.currentThrow);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           TurnScoreCard(currentThrow, turnScore),
@@ -207,73 +273,27 @@ class TurnCalculatorViewBody extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor:
-                            Theme.of(context).colorScheme.onSurface,
+                    child: FilledButton.icon(
+                      style: FilledButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      onPressed: () {
-                        context.read<TurnCalculatorCubit>().resetTurn();
-                        context.read<GameCubit>().nextPlayer();
-                      },
-                      icon: Image.asset('assets/images/icons/oinker.gif'),
-                      label: Text(l10n.makingBacon),
+                      onPressed: () => _handleCommitRoll(context),
+                      label: Text(l10n.saveAndRollAgain),
                     ),
                   ),
                 ],
               ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(8),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: FilledButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
-                      ),
-                      onPressed: () {
-                        if (currentThrow.isThrowComplete) {
-                          context
-                              .read<TurnCalculatorCubit>()
-                              .saveThrowToTurnAndResetThrow();
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              behavior: SnackBarBehavior.fixed,
-                              backgroundColor:
-                                  Theme.of(context).colorScheme.errorContainer,
-                              content: Text(
-                                l10n.turnNotComplete,
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .onErrorContainer,
-                                ),
-                              ),
-                            ),
-                          );
-                        }
-                      },
-                      label: const Text('Save and roll again'),
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox.fromSize(
-                size: const Size.fromHeight(8),
-              ),
+              const SizedBox(height: 8),
               Row(
                 children: [
                   Expanded(
                     child: OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8)),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         side: BorderSide(
                           color: Theme.of(context).colorScheme.error,
                           width: 1,
@@ -285,11 +305,10 @@ class TurnCalculatorViewBody extends StatelessWidget {
                       ),
                       onPressed: () => showDialog(
                         context: context,
-                        builder: (_) =>
-                            OffTheTableDialog(onOffTheTable: onOffTheTable),
+                        builder: (_) => OinkerDialog(onOinker: onOinker),
                       ),
-                      // icon: Image.asset('assets/images/icons/oinker.gif'),
-                      label: Text(l10n.offTheTable),
+                      icon: Image.asset('assets/images/icons/oinker.gif'),
+                      label: Text(l10n.oinker),
                     ),
                   ),
                 ],

@@ -13,3 +13,39 @@ Unofficial scoring app for the game Pass the Pigs. Built with ![Flutter](https:/
 ## Demo
 
 ![Demo](/docs//demo.gif)
+
+## Development
+
+This project uses [FVM](https://fvm.app/) to pin the Flutter SDK (`stable`). Install FVM, then from the project root:
+
+```sh
+fvm install
+fvm flutter pub get
+```
+
+### Run
+
+```sh
+fvm flutter run
+```
+
+Pass a device id if needed: `fvm flutter devices` then `fvm flutter run -d <device_id>`.
+
+### Test
+
+```sh
+fvm flutter test
+```
+
+### Build
+
+```sh
+# Android APK
+fvm flutter build apk
+
+# Android App Bundle
+fvm flutter build appbundle
+
+# iOS (macOS with Xcode)
+fvm flutter build ios
+```

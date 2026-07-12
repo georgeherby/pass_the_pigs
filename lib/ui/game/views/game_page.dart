@@ -29,23 +29,22 @@ class GameView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<GameCubit, Game>(
       builder: (context, state) {
-        debugPrint('GameView state: ${state.hasWinner}');
         if (state.isGameActive && !state.hasWinner) {
           return TurnCalculatorPage(
-            onOffTheTable: () {
+            onOinker: () {
               context.read<GameCubit>().resetAllThrows();
               context.read<GameCubit>().nextPlayer();
             },
             allPlayers: state.players,
             player: state.players[state.currentPlayer],
-            goToNextPlayer: (List<Throw> throwsToAdd) {
+            onBankTurn: (List<Throw> throwsToAdd) {
               context.read<GameCubit>().addTurnToPlayer(throwsToAdd);
               if (!context.read<GameCubit>().state.hasWinner) {
-                debugPrint('No winner do continue to next player');
                 context.read<GameCubit>().nextPlayer();
-              } else {
-                debugPrint('Game is over');
               }
+            },
+            onPigOut: () {
+              context.read<GameCubit>().nextPlayer();
             },
           );
         } else if (state.isGameActive && state.hasWinner) {

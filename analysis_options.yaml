@@ -18,7 +18,6 @@ linter:
     - prefer_final_in_for_each
     - unnecessary_null_checks
     - unnecessary_nullable_for_final_variable_declarations
-    - avoid_returning_null_for_future
     - avoid_type_to_string
     - avoid_print
     - file_names
@@ -53,7 +52,6 @@ linter:
     - prefer_conditional_assignment
     - prefer_contains
     - prefer_final_fields
-    - prefer_equal_for_default_values
     - prefer_foreach
     - prefer_if_elements_to_conditional_expressions
     - prefer_if_null_operators
