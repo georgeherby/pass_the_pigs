@@ -36,13 +36,13 @@
     "@saveAndRollAgain": {
         "description": "Button to commit roll and continue the turn"
     },
-    "oinker": "Oinker (reset total score)",
-    "@oinker": {
+    "makinBacon": "Makin' Bacon (reset total score)",
+    "@makinBacon": {
         "description": "Button label when pigs are touching"
     },
-    "oinkerDialogBody": "Both pigs are touching. This will reset your game score to 0 and end your turn.",
-    "@oinkerDialogBody": {
-        "description": "Body of Oinker confirmation dialog"
+    "makinBaconDialogBody": "Both pigs are touching. This will reset your game score to 0 and end your turn.",
+    "@makinBaconDialogBody": {
+        "description": "Body of Makin' Bacon confirmation dialog"
     },
     "cancel": "Cancel",
     "@cancel": {

@@ -12,8 +12,8 @@ class OinkerDialog extends StatelessWidget {
 
     return DestructiveDialog(
       destroyButtonText: l10n.resetScore,
-      title: l10n.oinker,
-      content: l10n.oinkerDialogBody,
+      title: l10n.makinBacon,
+      content: l10n.makinBaconDialogBody,
       onCancel: () {
         Navigator.of(context).pop();
       },

@@ -36,10 +36,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveAndRollAgain => 'Save and roll again';
 
   @override
-  String get oinker => 'Oinker (reset total score)';
+  String get makinBacon => 'Makin\' Bacon (reset total score)';
 
   @override
-  String get oinkerDialogBody =>
+  String get makinBaconDialogBody =>
       'Both pigs are touching. This will reset your game score to 0 and end your turn.';
 
   @override

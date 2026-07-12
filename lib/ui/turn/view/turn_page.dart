@@ -308,7 +308,7 @@ class TurnCalculatorViewBody extends StatelessWidget {
                         builder: (_) => OinkerDialog(onOinker: onOinker),
                       ),
                       icon: Image.asset('assets/images/icons/oinker.gif'),
-                      label: Text(l10n.oinker),
+                      label: Text(l10n.makinBacon),
                     ),
                   ),
                 ],

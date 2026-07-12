@@ -151,14 +151,14 @@ abstract class AppLocalizations {
   /// Button label when pigs are touching
   ///
   /// In en, this message translates to:
-  /// **'Oinker (reset total score)'**
-  String get oinker;
+  /// **'Makin\' Bacon (reset total score)'**
+  String get makinBacon;
 
-  /// Body of Oinker confirmation dialog
+  /// Body of Makin' Bacon confirmation dialog
   ///
   /// In en, this message translates to:
   /// **'Both pigs are touching. This will reset your game score to 0 and end your turn.'**
-  String get oinkerDialogBody;
+  String get makinBaconDialogBody;
 
   /// Used anywhere that cancel is needed
   ///
