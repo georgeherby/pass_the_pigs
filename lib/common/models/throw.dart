@@ -5,6 +5,13 @@ import 'package:pass_the_pigs/ui/turn/enums/position.dart';
 class Throw extends Equatable {
   const Throw({this.pigOne, this.pigTwo});
 
+  factory Throw.fromJson(Map<String, dynamic> json) {
+    return Throw(
+      pigOne: _positionFromName(json['pigOne'] as String?),
+      pigTwo: _positionFromName(json['pigTwo'] as String?),
+    );
+  }
+
   final Position? pigOne;
   final Position? pigTwo;
 
@@ -85,6 +92,16 @@ class Throw extends Equatable {
       case Pig.two:
         return pigTwo;
     }
+  }
+
+  Map<String, dynamic> toJson() => {
+        'pigOne': pigOne?.name,
+        'pigTwo': pigTwo?.name,
+      };
+
+  static Position? _positionFromName(String? name) {
+    if (name == null) return null;
+    return Position.values.byName(name);
   }
 
   @override

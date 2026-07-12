@@ -3,19 +3,30 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pass_the_pigs/common/common.dart';
 import 'package:pass_the_pigs/ui/game/cubit/game_cubit.dart';
 import 'package:pass_the_pigs/ui/game/models/game.dart';
+import 'package:pass_the_pigs/ui/game/storage/game_storage.dart';
 import 'package:pass_the_pigs/ui/game/views/game_inactive_view.dart';
 import 'package:pass_the_pigs/ui/game/views/game_winner_view.dart';
 import 'package:pass_the_pigs/ui/turn/view/turn_page.dart';
 
 class GamePage extends StatelessWidget {
-  const GamePage({super.key});
+  const GamePage({
+    super.key,
+    required this.gameStorage,
+    required this.initialGame,
+  });
+
+  final GameStorage gameStorage;
+  final Game initialGame;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: BlocProvider(
-        create: (_) => GameCubit(),
+        create: (_) => GameCubit(
+          storage: gameStorage,
+          initialGame: initialGame,
+        ),
         child: const GameView(),
       ),
     );

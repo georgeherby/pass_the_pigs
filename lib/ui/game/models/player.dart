@@ -4,12 +4,19 @@ import 'package:pass_the_pigs/common/common.dart';
 class Player extends Equatable {
   const Player({required this.id, required this.name, required this.throws});
 
+  factory Player.fromJson(Map<String, dynamic> json) {
+    return Player(
+      id: json['id'] as int,
+      name: json['name'] as String,
+      throws: (json['throws'] as List<dynamic>)
+          .map((t) => Throw.fromJson(t as Map<String, dynamic>))
+          .toList(),
+    );
+  }
+
   final int id;
   final String name;
   final List<Throw> throws;
-
-  @override
-  List<Object> get props => [id, name, throws];
 
   Player addThrowsToPlayer(List<Throw> newThrows) {
     return copyWith(throws: [...throws, ...newThrows]);
@@ -35,4 +42,13 @@ class Player extends Equatable {
       throws: throws ?? this.throws,
     );
   }
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'throws': throws.map((t) => t.toJson()).toList(),
+      };
+
+  @override
+  List<Object> get props => [id, name, throws];
 }

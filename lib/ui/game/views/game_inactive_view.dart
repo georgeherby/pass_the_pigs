@@ -65,8 +65,6 @@ class GameInactiveView extends StatelessWidget {
               ),
               BlocBuilder<GameCubit, Game>(
                 builder: (context, state) {
-                  debugPrint(state.players.length.toString());
-
                   return Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
