@@ -1,3 +1,6 @@
 {
-  "flutterSdkVersion": "stable"
+  "flutterSdkVersion": "stable",
+  "flavors": {
+    "production": "stable"
+  }
 }
